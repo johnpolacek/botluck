@@ -3,7 +3,9 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "format": "prettier --write \"**/*.{js,jsx,json,md}\"",
+    "format-watch": "npm run format && onchange \"**/*.{js,jsx,json,md}\" -- prettier --write {{changed}}"
   },
   "dependencies": {
     "@headlessui/react": "^1.7.7",
@@ -16,7 +18,9 @@
     "firebase-admin": "^11.5.0",
     "framer-motion": "^8.4.3",
     "next": "latest",
+    "onchange": "^7.1.0",
     "partial-json-parser": "^1.2.2",
+    "prettier": "^2.8.4",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-hook-form": "^7.42.0",

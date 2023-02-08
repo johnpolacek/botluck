@@ -44,7 +44,7 @@ const MealPlan = () => {
                 <div className="pb-4" key={meal}>
                   <div className="text-2xl pb-4">{meal}</div>
                   {data[meal as keyof MealPlan] && data[meal as keyof MealPlan].map((dish) => (
-                    <div className="pb-4">
+                    <div className="bg-white shadow rounded-lg p-6 mb-4">
                       <h4 className="font-bold text-lg">{dish.Name}</h4>
                       {
                         dish.Ingredients.map((ingredient) => (<p>{ingredient}</p>))
