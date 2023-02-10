@@ -1,76 +1,79 @@
-import React, { createContext, useState, useEffect } from 'react';
-import { getDataFromStream } from '../lib/openai/generate';
-import { MealPlan, PotLuckData } from './Types';
+import React, { createContext, useState, useEffect } from "react"
+import { getDataFromStream } from "../lib/openai/generate"
+import { MealPlan, PotLuckData } from "./Types"
 
 type AppContextType = {
-  mealPlan: MealPlan;
-  setMealPlan: (mealPlan: MealPlan) => void;
-  theme: string;
-  setTheme: (theme: string) => void;
-  generatedPotLuck: string;
-  setGeneratedPotLuck: (newPotLuck: string) => void;
-  potLuckData: PotLuckData | null;
-  children?: React.ReactNode;
-  isSubmitted: boolean;
-  setIsSubmitted: (isSubmitted: boolean) => void;
-};
+  mealPlan: MealPlan
+  setMealPlan: (mealPlan: MealPlan) => void
+  theme: string
+  setTheme: (theme: string) => void
+  generatedPotLuck: string
+  setGeneratedPotLuck: (newPotLuck: string) => void
+  potLuckData: PotLuckData | null
+  children?: React.ReactNode
+  isSubmitted: boolean
+  setIsSubmitted: (isSubmitted: boolean) => void
+}
 
 const defaultMealPlan: MealPlan = {
-  appetizers: 6,
+  appetizers: 3,
   mains: 2,
-  sides: 3,
-  desserts: 2,
-};
+  sides: 2,
+  desserts: 1,
+}
 
 const AppContext = createContext<AppContextType>({
   mealPlan: defaultMealPlan,
-  setMealPlan: () => { },
-  theme: '',
-  setTheme: () => { },
-  generatedPotLuck: '',
-  setGeneratedPotLuck: () => { },
+  setMealPlan: () => {},
+  theme: "",
+  setTheme: () => {},
+  generatedPotLuck: "",
+  setGeneratedPotLuck: () => {},
   potLuckData: null,
   isSubmitted: false,
-  setIsSubmitted: () => { },
-});
+  setIsSubmitted: () => {},
+})
 
 const AppContextProvider: React.FC<{
-  children: React.ReactNode;
+  children: React.ReactNode
 }> = ({ children }) => {
   const [state, setState] = useState({
     mealPlan: defaultMealPlan,
-    theme: '',
-    generatedPotLuck: '',
+    theme: "",
+    generatedPotLuck: "",
     isSubmitted: false,
     potLuckData: null as PotLuckData | null,
-  });
+  })
 
   useEffect(() => {
     const newData = getDataFromStream(state.generatedPotLuck)
     if (newData) {
       const newPotLuckData = {
         theme: state.theme,
-        courses: newData
+        courses: newData,
       }
-      setState(prevState => ({ ...prevState, potLuckData: newPotLuckData }));
+      setState((prevState) => ({ ...prevState, potLuckData: newPotLuckData }))
     }
-  }, [state.generatedPotLuck]);
+  }, [state.generatedPotLuck])
 
   const setMealPlan = (newMealPlan: MealPlan) => {
-    setState(prevState => ({ ...prevState, mealPlan: newMealPlan }));
-  };
+    setState((prevState) => ({ ...prevState, mealPlan: newMealPlan }))
+  }
 
   const setTheme = (newTheme: string) => {
-    setState(prevState => ({ ...prevState, theme: newTheme }));
-  };
+    setState((prevState) => ({ ...prevState, theme: newTheme }))
+  }
 
   const setGeneratedPotLuck = (newPotLuck: string) => {
-    setState(prevState => ({ ...prevState, generatedPotLuck: prevState.generatedPotLuck + newPotLuck }));
-  };
+    setState((prevState) => ({
+      ...prevState,
+      generatedPotLuck: prevState.generatedPotLuck + newPotLuck,
+    }))
+  }
 
   const setIsSubmitted = (isSubmitted: boolean) => {
-    setState(prevState => ({ ...prevState, isSubmitted }));
-  };
+    setState((prevState) => ({ ...prevState, isSubmitted }))
+  }
 
   return (
     <AppContext.Provider
@@ -88,7 +91,7 @@ const AppContextProvider: React.FC<{
     >
       {children}
     </AppContext.Provider>
-  );
-};
+  )
+}
 
-export { AppContext, AppContextProvider };
+export { AppContext, AppContextProvider }

@@ -1,13 +1,6 @@
-export type MealPlan = {
-  appetizers: number;
-  mains: number;
-  sides: number;
-  desserts: number;
-};
-
-export type Meal = {
-  name: string;
-  ingredients: string[]
+export type PotLuckData = {
+  theme: string;
+  courses: Courses;
 }
 
 export type Courses = {
@@ -17,7 +10,14 @@ export type Courses = {
   Desserts?: Meal[];
 }
 
-export type PotLuckData = {
-  theme: string;
-  courses: Courses;
+export type Meal = {
+  name: string;
+  ingredients: string[]
 }
+
+export type MealPlan = {
+  appetizers: number;
+  mains: number;
+  sides: number;
+  desserts: number;
+};

@@ -1,3 +1,5 @@
+import untruncateJson from "untruncate-json"
+
 export const attemptToCompleteJSON = (incompleteJSON: string) => {
   let stack = [];
   let i = 0;
@@ -53,8 +55,8 @@ export const getDataFromStream = ((stream: string) => {
   let parsed
   try {
     if (stream) {
-      parsed = JSON.parse(attemptToCompleteJSON(stream))
-      console.log({ parsed })
+      parsed = JSON.parse(untruncateJson((stream)));
+      console.log({ parsed });
     }
   } catch (error) {
     // parsing incomplete json is unreliable so some errors are expected
