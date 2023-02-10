@@ -1,11 +1,6 @@
-import React, { createContext, useState } from 'react';
-
-type MealPlan = {
-  appetizers: number;
-  mains: number;
-  sides: number;
-  desserts: number;
-};
+import React, { createContext, useState, useEffect } from 'react';
+import { getDataFromStream } from '../lib/openai/generate';
+import { MealPlan, PotLuckData } from './Types';
 
 type AppContextType = {
   mealPlan: MealPlan;
@@ -14,7 +9,10 @@ type AppContextType = {
   setTheme: (theme: string) => void;
   generatedPotLuck: string;
   setGeneratedPotLuck: (newPotLuck: string) => void;
+  potLuckData: PotLuckData | null;
   children?: React.ReactNode;
+  isSubmitted: boolean;
+  setIsSubmitted: (isSubmitted: boolean) => void;
 };
 
 const defaultMealPlan: MealPlan = {
@@ -31,18 +29,32 @@ const AppContext = createContext<AppContextType>({
   setTheme: () => { },
   generatedPotLuck: '',
   setGeneratedPotLuck: () => { },
+  potLuckData: null,
+  isSubmitted: false,
+  setIsSubmitted: () => { },
 });
 
-interface Props {
+const AppContextProvider: React.FC<{
   children: React.ReactNode;
-}
-
-const AppContextProvider: React.FC<Props> = ({ children }) => {
+}> = ({ children }) => {
   const [state, setState] = useState({
     mealPlan: defaultMealPlan,
     theme: '',
     generatedPotLuck: '',
+    isSubmitted: false,
+    potLuckData: null as PotLuckData | null,
   });
+
+  useEffect(() => {
+    const newData = getDataFromStream(state.generatedPotLuck)
+    if (newData) {
+      const newPotLuckData = {
+        theme: state.theme,
+        courses: newData
+      }
+      setState(prevState => ({ ...prevState, potLuckData: newPotLuckData }));
+    }
+  }, [state.generatedPotLuck]);
 
   const setMealPlan = (newMealPlan: MealPlan) => {
     setState(prevState => ({ ...prevState, mealPlan: newMealPlan }));
@@ -56,6 +68,10 @@ const AppContextProvider: React.FC<Props> = ({ children }) => {
     setState(prevState => ({ ...prevState, generatedPotLuck: prevState.generatedPotLuck + newPotLuck }));
   };
 
+  const setIsSubmitted = (isSubmitted: boolean) => {
+    setState(prevState => ({ ...prevState, isSubmitted }));
+  };
+
   return (
     <AppContext.Provider
       value={{
@@ -65,6 +81,9 @@ const AppContextProvider: React.FC<Props> = ({ children }) => {
         setTheme,
         generatedPotLuck: state.generatedPotLuck,
         setGeneratedPotLuck,
+        isSubmitted: state.isSubmitted,
+        setIsSubmitted,
+        potLuckData: state.potLuckData,
       }}
     >
       {children}

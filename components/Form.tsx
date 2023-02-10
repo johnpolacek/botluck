@@ -9,8 +9,9 @@ const Form: React.FC = () => {
 
   const onSubmitRequest = async (e: React.SyntheticEvent) => {
     e.preventDefault();
-    const prompt = `Generate recipes for a pot luck dinner in the theme of ${context.theme} with ${context.mealPlan.appetizers} appetizers, ${context.mealPlan.mains} main courses, ${context.mealPlan.sides} side dishes and ${context.mealPlan.desserts} desserts in JSON format`;
-    const tokens = (context.mealPlan.appetizers + context.mealPlan.mains + context.mealPlan.sides + context.mealPlan.desserts) * 400
+    context.setIsSubmitted(true);
+    const prompt = `Generate recipes with ingredients for a pot luck dinner in the theme of ${context.theme} with ${context.mealPlan.appetizers} appetizers, ${context.mealPlan.mains} main courses, ${context.mealPlan.sides} side dishes and ${context.mealPlan.desserts} desserts in JSON format.`;
+    const tokens = (context.mealPlan.appetizers + context.mealPlan.mains + context.mealPlan.sides + context.mealPlan.desserts) * 800
     const response = await fetch("/api/generate", {
       method: "POST",
       headers: {
@@ -18,7 +19,7 @@ const Form: React.FC = () => {
       },
       body: JSON.stringify({
         prompt,
-        tokens,
+        tokens: tokens > 3700 ? 3700 : tokens,
       }),
     });
     console.log("Edge function returned.");
@@ -47,10 +48,10 @@ const Form: React.FC = () => {
 
   return (
     <form
-      className={`pb-16 mb-8 ${context.generatedPotLuck ? 'hidden' : ''}`}
+      className={`max-w-3xl pt-8 pb-16 mx-auto mb-8 ${context.isSubmitted ? 'hidden' : ''}`}
       onSubmit={onSubmitRequest}
     >
-      <h1 className="sm:text-6xl text-4xl max-w-3xl font-bold text-slate-900">
+      <h1 className="text-6xl max-w-3xl font-bold text-primary-600">
         Generate recipes for a fun group Pot Luck Dinner
       </h1>
       <div className="max-w-lg mx-auto">
@@ -58,7 +59,7 @@ const Form: React.FC = () => {
         <MealPlanner />
         <button
           type="submit"
-          className="bg-black rounded-xl text-white font-medium text-2xl p-4 sm:mt-10 mt-8 hover:bg-black/80 w-full"
+          className="bg-green-500 rounded-xl text-white font-medium text-2xl p-4 sm:mt-10 mt-8 w-full"
         >
           Generate your recipes &rarr;
         </button>

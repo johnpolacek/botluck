@@ -1,61 +1,37 @@
 import React, { useContext, useState, useEffect } from 'react';
 import { AppContext } from './AppContext';
-import { attemptToCompleteJSON } from '../lib/openai/generate';
+import { Courses } from './Types';
+import { Dancing_Script } from '@next/font/google';
+import Dish from './Dish';
+import LoadingAnimation from './LoadingAnimation';
+import Separator from './Separator';
+
+const dancingScript = Dancing_Script({ subsets: ['latin'] });
 
 const MealPlan = () => {
-  const { generatedPotLuck, theme } = useContext(AppContext);
-  const [data, setData] = useState<MealPlan | null>(null)
-
-  useEffect(() => {
-    let parsed
-    try {
-      if (generatedPotLuck) {
-        parsed = JSON.parse(attemptToCompleteJSON(generatedPotLuck))
-        if (parsed) {
-          setData(parsed)
-        }
-        console.log({ parsed })
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  }, [generatedPotLuck])
-
-  type Meal = {
-    Name: string;
-    Ingredients: string[]
-  }
-
-  type MealPlan = {
-    Appetizers: Meal[];
-    "Main Course": Meal[];
-    "Side Dishes": Meal[];
-    Desserts: Meal[];
-  }
+  const { potLuckData, theme, isSubmitted } = useContext(AppContext);
 
   return (
-    <div className="py-8">
-      <h3 className="text-5xl font-bold w-full pb-8">{theme}</h3>
+    <div className={`py-8 ${isSubmitted ? '' : 'hidden'}`}>
+      <h3 className={`text-7xl text-primary-700 w-full pb-12 ${dancingScript.className}`}>{theme}</h3>
       {
-        data ? (
+        potLuckData ? (
           <>
             {
-              Object.keys(data).map((meal) => (
-                <div className="pb-4" key={meal}>
-                  <div className="text-2xl pb-4">{meal}</div>
-                  {data[meal as keyof MealPlan] && data[meal as keyof MealPlan].map((dish) => (
-                    <div className="bg-white shadow rounded-lg p-6 mb-4">
-                      <h4 className="font-bold text-lg">{dish.Name}</h4>
-                      {
-                        dish.Ingredients.map((ingredient) => (<p>{ingredient}</p>))
-                      }
-                    </div>
-                  ))}
+              Object.keys(potLuckData.courses).map((course) => (
+                <div className="py-8" key={course}>
+                  <Separator />
+                  <div className={`text-4xl font-bold text-primary-500 w-full pb-12 ${dancingScript.className}`}>{course}</div>
+                  <div className="flex flex-wrap px-16 pb-8 justify-center">
+                    {potLuckData.courses[course as keyof Courses]?.map((dish) => (
+                      <Dish dish={dish} />
+                    ))}
+                  </div>
                 </div>
               ))
             }
           </>
-        ) : (<div></div>)
+        ) : (<LoadingAnimation />)
       }
     </div>
   );

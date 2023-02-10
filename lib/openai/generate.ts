@@ -46,7 +46,19 @@ export const attemptToCompleteJSON = (incompleteJSON: string) => {
     }
   }
 
-  console.log({ incompleteJSON, stack, complete })
-
   return complete;
 }
+
+export const getDataFromStream = ((stream: string) => {
+  let parsed
+  try {
+    if (stream) {
+      parsed = JSON.parse(attemptToCompleteJSON(stream))
+      console.log({ parsed })
+    }
+  } catch (error) {
+    // parsing incomplete json is unreliable so some errors are expected
+    // console.error(error);
+  }
+  return parsed
+})

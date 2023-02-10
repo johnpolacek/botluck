@@ -1,5 +1,8 @@
 import React, { useContext } from 'react';
 import { AppContext } from './AppContext';
+import { Dancing_Script } from '@next/font/google';
+
+const dancingScript = Dancing_Script({ subsets: ['latin'] });
 
 const MealPlanner = () => {
   const { mealPlan, setMealPlan } = useContext(AppContext);
@@ -22,7 +25,7 @@ const MealPlanner = () => {
 
   return (
     <div className="py-8">
-      <h3 className="text-2xl font-medium w-full pb-4">Set up a meal plan</h3>
+      <h3 className={`text-4xl font-bold w-full pb-6 text-primary-700 ${dancingScript.className}`}>Set up a meal plan</h3>
       <div className="flex items-center w-full">
         <label className="w-1/2 text-right pr-2">Appetizers:</label>
         <input className="w-16 rounded-md border px-2 py-1 border-gray-300 shadow-sm focus:border-black focus:ring-black my-2 text-center" type="number" value={mealPlan.appetizers} onChange={handleAppetizersChange} />

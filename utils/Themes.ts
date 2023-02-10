@@ -84,7 +84,6 @@ const themes = [
   "Great Gatsby Roaring Twenties Bash",
   "Beach Grillout",
   "1950s Diner Spread",
-  "To Kill a Mockingbird: A Southern Soiree",
   "Soul Food Celebration",
   "Night at the Jazz Blub",
   "Country Hoedown",
