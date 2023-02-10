@@ -1,15 +1,37 @@
-import Link from "next/link";
+import Link from "next/link"
 
 export default function Footer() {
   return (
-    <footer className="text-center h-16 sm:h-20 w-full sm:pt-2 pt-4 border-t flex sm:flex-row flex-col justify-between items-center px-3 space-y-3 sm:mb-0 mb-3">
+    <footer className="flex flex-col justify-center items-center gap-2 text-center pt-8 pb-4 w-full border-primary-100 border-t ">
+      <div>
+        Built by{" "}
+        <a
+          href="https://johnpolacek.com/"
+          target="_blank"
+          rel="noreferrer"
+          className="font-bold hover:underline transition underline-offset-2 text-blue-600"
+        >
+          John Polacek
+        </a>
+      </div>
+      <div>
+        Follow{" "}
+        <a
+          href="https://twitter.com/johnpolacek"
+          target="_blank"
+          rel="noreferrer"
+          className="font-bold hover:underline transition underline-offset-2 text-blue-600"
+        >
+          @johnpolacek
+        </a>
+      </div>
       <div>
         Powered by{" "}
         <a
           href="https://openai.com/"
           target="_blank"
           rel="noreferrer"
-          className="font-bold hover:underline transition underline-offset-2"
+          className="font-bold hover:underline transition underline-offset-2 text-blue-600"
         >
           OpenAI{" "}
         </a>
@@ -18,14 +40,14 @@ export default function Footer() {
           href="https://vercel.com/"
           target="_blank"
           rel="noreferrer"
-          className="font-bold hover:underline transition underline-offset-2"
+          className="font-bold hover:underline transition underline-offset-2 text-blue-600"
         >
           Vercel Edge Functions.
         </a>
       </div>
-      <div className="flex space-x-4 pb-4 sm:pb-0">
+      <div className="flex space-x-4 py-4">
         <Link
-          href="https://twitter.com/nutlope"
+          href="https://twitter.com/johnpolacek"
           className="group"
           aria-label="TaxPal on Twitter"
         >
@@ -37,9 +59,9 @@ export default function Footer() {
           </svg>
         </Link>
         <Link
-          href="https://github.com/Nutlope/twitterbio"
+          href="https://github.com/johnpolacek/"
           className="group"
-          aria-label="TaxPal on GitHub"
+          aria-label="John Polacek on GitHub"
         >
           <svg
             aria-hidden="true"
@@ -50,5 +72,5 @@ export default function Footer() {
         </Link>
       </div>
     </footer>
-  );
+  )
 }
