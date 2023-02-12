@@ -4,8 +4,8 @@ import { Dancing_Script } from "@next/font/google"
 const dancingScript = Dancing_Script({ subsets: ["latin"] })
 
 const Dish = ({ dish }: { dish: Dish }) => {
-  const name = dish.name || dish.Name
-  const ingredients = dish.ingredients || dish.Ingredients
+  const name = dish.name
+  const ingredients = dish.ingredients
 
   return (
     <div className="w-[640px] max-w-full px-4 mb-8">
