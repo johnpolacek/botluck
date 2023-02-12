@@ -22,22 +22,29 @@ const MealPlan = () => {
         <>
           {Object.keys(potLuckData.courses).map((course) => (
             <div className="py-8" key={course}>
-              <Separator />
-              <div
-                className={`text-4xl font-bold text-primary-500 w-full pb-12 ${dancingScript.className}`}
-              >
-                {course}
-              </div>
-              <div className="flex flex-wrap px-16 pb-8 justify-center">
-                {potLuckData.courses[course as keyof Courses]?.map((dish) => (
-                  <Dish dish={dish} />
-                ))}
-              </div>
+              {potLuckData.courses[course as keyof Courses].length > 0 && (
+                <>
+                  <Separator />
+                  <div
+                    className={`text-4xl font-bold text-primary-500 w-full pb-12 ${dancingScript.className}`}
+                  >
+                    {course}
+                  </div>
+                  <div className="flex flex-wrap px-8 pb-8 justify-center">
+                    {Array.isArray(
+                      potLuckData.courses[course as keyof Courses]
+                    ) &&
+                      potLuckData.courses[course as keyof Courses]?.map(
+                        (dish, i) => <Dish key={`dish-${i}`} dish={dish} />
+                      )}
+                  </div>
+                </>
+              )}
             </div>
           ))}
         </>
       ) : (
-        <LoadingAnimation />
+        <LoadingAnimation loadingText="Cooking up your dishes..." />
       )}
     </div>
   )

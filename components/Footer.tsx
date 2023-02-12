@@ -15,7 +15,7 @@ export default function Footer() {
         </a>
       </div>
       <div>
-        Follow{" "}
+        You can follow me at{" "}
         <a
           href="https://twitter.com/johnpolacek"
           target="_blank"

@@ -1,17 +1,22 @@
-import React, { useContext } from 'react';
-import { AppContext } from './AppContext';
-import ThemePicker from './ThemePicker';
-import MealPlanner from './MealPlanner';
+import React, { useContext } from "react"
+import { AppContext } from "./AppContext"
+import ThemePicker from "./ThemePicker"
+import MealPlanner from "./MealPlanner"
 
 const Form: React.FC = () => {
-
-  const context = useContext(AppContext);
+  const context = useContext(AppContext)
 
   const onSubmitRequest = async (e: React.SyntheticEvent) => {
-    e.preventDefault();
-    context.setIsSubmitted(true);
-    const prompt = `Generate recipes with ingredients for a pot luck dinner in the theme of ${context.theme} with ${context.mealPlan.appetizers} appetizers, ${context.mealPlan.mains} main courses, ${context.mealPlan.sides} side dishes and ${context.mealPlan.desserts} desserts in JSON format.`;
-    const tokens = (context.mealPlan.appetizers + context.mealPlan.mains + context.mealPlan.sides + context.mealPlan.desserts) * 800
+    e.preventDefault()
+    context.setIsSubmitted(true)
+    const prompt = `Generate recipes with ingredients in JSON format for a pot luck dinner in the theme of ${context.theme} with ${context.mealPlan.appetizers} appetizers, ${context.mealPlan.mains} main courses, ${context.mealPlan.sides} side dishes and ${context.mealPlan.desserts} desserts. Must be in JSON format with the ingredients as an array of strings.`
+    const tokens =
+      (context.mealPlan.appetizers +
+        context.mealPlan.mains +
+        context.mealPlan.sides +
+        context.mealPlan.desserts) *
+        200 +
+      prompt.length / 4
     const response = await fetch("/api/generate", {
       method: "POST",
       headers: {
@@ -19,53 +24,74 @@ const Form: React.FC = () => {
       },
       body: JSON.stringify({
         prompt,
-        tokens: tokens > 3700 ? 3700 : tokens,
+        tokens: tokens > 2048 ? 2048 : tokens,
       }),
-    });
-    console.log("Edge function returned.");
+    })
 
     if (!response.ok) {
-      throw new Error(response.statusText);
+      throw new Error(response.statusText)
     }
 
     // This data is a ReadableStream
-    const data = response.body;
+    const data = response.body
     if (!data) {
-      return;
+      return
     }
 
-    const reader = data.getReader();
-    const decoder = new TextDecoder();
-    let done = false;
+    const reader = data.getReader()
+    const decoder = new TextDecoder()
+    let done = false
+    let isJson = null
 
     while (!done) {
-      const { value, done: doneReading } = await reader.read();
-      done = doneReading;
-      const chunkValue = decoder.decode(value);
-      context.setGeneratedPotLuck(chunkValue);
+      const { value, done: doneReading } = await reader.read()
+      done = doneReading
+      const chunkValue = decoder.decode(value)
+      if (isJson === null && chunkValue.length) {
+        // check that this is JSON, if not then need to retry
+        isJson = chunkValue.charAt(0) === "{"
+        if (!isJson) {
+          done = true
+          alert("Sorry there was an error with the robot. Please try again.")
+        }
+      }
+      context.setGeneratedPotLuck(chunkValue)
     }
+
+    context.incrementTokensUsed(
+      (prompt.length + context.generatedPotLuck.length) / 4
+    )
+    console.log("ingredients complete", context.potLuckData)
+    context.setIngredientsComplete(true)
   }
 
   return (
     <form
-      className={`max-w-3xl pt-8 pb-16 mx-auto mb-8 ${context.isSubmitted ? 'hidden' : ''}`}
+      className={`max-w-3xl pt-8 pb-16 mx-auto mb-8 ${
+        context.isSubmitted ? "hidden" : ""
+      }`}
       onSubmit={onSubmitRequest}
     >
       <h1 className="text-6xl max-w-3xl font-bold text-primary-600">
         Generate recipes for a fun group Pot Luck Dinner
       </h1>
-      <div className="max-w-lg mx-auto">
+      <div>
         <ThemePicker />
         <MealPlanner />
         <button
           type="submit"
-          className="bg-green-500 rounded-xl text-white font-medium text-2xl p-4 sm:mt-10 mt-8 w-full"
+          className="bg-green-500 rounded-xl text-white font-medium text-2xl p-4 mt-4 w-full"
         >
-          Generate your recipes &rarr;
+          <span className="inline-block relative">
+            Generate your recipes{" "}
+            <span className="font-thin text-4xl absolute -top-2 -right-8 pt-px">
+              »
+            </span>
+          </span>
         </button>
       </div>
     </form>
-  );
-};
+  )
+}
 
-export default Form;
+export default Form

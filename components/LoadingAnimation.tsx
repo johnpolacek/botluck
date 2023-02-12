@@ -1,7 +1,7 @@
 import { Dancing_Script } from "@next/font/google"
 const dancingScript = Dancing_Script({ subsets: ["latin"] })
 
-const LoadingAnimation = () => {
+const LoadingAnimation = ({ loadingText }: { loadingText?: string }) => {
   return (
     <div className="my-16">
       <div className="w-full h-32 relative flex justify-center">
@@ -15,25 +15,25 @@ const LoadingAnimation = () => {
           x="0px"
           y="0px"
           viewBox="0 0 100 100"
-          enable-background="new 0 0 100 100"
+          enableBackground="new 0 0 100 100"
           xmlSpace="preserve"
         >
           <title>Loading</title>
           <circle
             fill="none"
             stroke="#D98368"
-            stroke-width="4"
-            stroke-miterlimit="10"
+            strokeWidth="4"
+            strokeMiterlimit="10"
             cx="50"
             cy="50"
             r="48"
           />
           <line
             fill="none"
-            stroke-linecap="round"
+            strokeLinecap="round"
             stroke="#D98368"
-            stroke-width="4"
-            stroke-miterlimit="10"
+            strokeWidth="4"
+            strokeMiterlimit="10"
             x1="50"
             y1="50"
             x2="85"
@@ -50,10 +50,10 @@ const LoadingAnimation = () => {
           </line>
           <line
             fill="none"
-            stroke-linecap="round"
+            strokeLinecap="round"
             stroke="#D98368"
-            stroke-width="4"
-            stroke-miterlimit="10"
+            strokeWidth="4"
+            strokeMiterlimit="10"
             x1="50"
             y1="50"
             x2="49.5"
@@ -73,7 +73,7 @@ const LoadingAnimation = () => {
       <div
         className={`w-full italic text-3xl py-6 text-primary-500 ${dancingScript.className}`}
       >
-        Cooking up your meal plan...
+        {loadingText}
       </div>
     </div>
   )

@@ -1,7 +1,7 @@
 const themes = [
   "Comfort Food",
   "International Cuisine",
-  "BBQ",
+  "Backyard Barbeque",
   "Moroccan Night",
   "Taste of Thailand",
   "Indian Spice Bazaar",
@@ -47,8 +47,6 @@ const themes = [
   "Meatless Meals",
   "Sandwich Bar",
   "One-Pot Wonders",
-  "Rustic Breads",
-  "Regional Cuisine",
   "Bring the Heat Spicy Dishes",
   "Slow Cooker",
   "Mexitalian",
@@ -85,19 +83,46 @@ const themes = [
   "Beach Grillout",
   "1950s Diner Spread",
   "Soul Food Celebration",
-  "Night at the Jazz Blub",
+  "Night at the Jazz Club",
   "Country Hoedown",
   "Reggae Picnic",
   "Punk Rock Potluck",
   "Bring the Bacon",
   "Stir-Fry-a-Palooza",
-  "Chili Con Carne-ival"
-];
+  "Chili Con Carne-ival",
+  "Down at the Bayou",
+  "Gourmet Kid Food",
+  "Tapas Night",
+  "Paella Party",
+  "Fiesta de Flamenco",
+  "Wine and Dine",
+  "Gourmet Gastropub",
+  "European Bistro",
+  "Gordon Ramsay's Hell's Kitchen",
+  "Julia Child Classics",
+  "Flavortown",
+  "Jamie Oliver's Kitchen",
+  "Mario Batali's Osteria",
+  "Alton Brown's Pantry",
+  "David Chang's Momofuku",
+  "A Night in Paris",
+  "Provencal Feast",
+  "Classic Dishes of France",
+  "A Trip to Burgundy",
+  "A Bite of the Basque Country",
+  "A Tour of Tuscany",
+  "Journey Through the Amalfi Coast",
+  "Garden Fresh Farmers Market Veggie Potluck",
+  "Florida Keys Seafood Boil",
+  "New England Clambake",
+  "Louisiana Cajun Cookout",
+  "Disney’s Encanto",
+]
 
 export const getThemes = () => {
   for (let i = themes.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [themes[i], themes[j]] = [themes[j], themes[i]];
+    const j = Math.floor(Math.random() * (i + 1))
+    ;[themes[i], themes[j]] = [themes[j], themes[i]]
   }
-  return themes;
+  return themes
 }
