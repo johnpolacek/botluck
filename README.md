@@ -365,10 +365,17 @@ Sometimes the keys are capitalized and other times lowercase. The ingredients ar
 
 If the user asks for a single Appetizer, the data key will be `Appetizer` instead of `Appetizers`.
 
+### Storing Results on Firebase
 
-### Deploying
+I want to store the generated recipes so I spun up a quick [Firebase Project](https://firebase.google.com/). I attempted to have ChatGPT generate some of the firebase code, but it generated code that was out of date or not for the version of the SDK I was using (e.g. client or Node vs Admin SDK). It looked good at first glance, but no go.
 
-To make the app available to the public, we can deploy to Vercel. We can create a new Vercel project by connecting to Github. We'll need to add the secret keys and as environment variables in the Vercel project settings.
+However, if your brain is a little fried and you can use ChatGPT to give you a shortcut:
+
+> Update the following firebase admin sdk code in the getRecentPotLucks function to return the data from the most recent 20 in the snapshot:
+export const getRecentPotLucks = async () => {
+  const potlucksRef = db.collection('potluck');
+  const snapshot = await potlucksRef.orderBy('created').get();
+}
 
 
 ### Rate Limiting
@@ -378,6 +385,19 @@ The OpenAI API is not free, but it does have a free plan where you get $18 of cr
 Every request that comes into the API is tracked for how many tokens it uses which consists of the length of the prompt plus the length of the response.
 
 Calculating your usage is not an exact science as you can't control the exact length of what the response will be. The best we can do is make a calculated guess.
+
+I'd rather not have this app cost me lots of money, so I'll want to put some daily rate limiting on it. I'll implement a daily usage count where I can keep track of how many tokens it has consumed and turn it off when it hits a limit.
+
+
+
+
+
+
+
+### Deploying
+
+To make the app available to the public, we can deploy to Vercel. We can create a new Vercel project by connecting to Github. We'll need to add the secret keys and as environment variables in the Vercel project settings.
+
 
 In looking at the usage graphs on my account, it looks like each individual recipe will consume about 132 tokens. We can round up to 150 to be safe with some buffer.
 

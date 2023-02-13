@@ -1,10 +1,10 @@
 import React, { useContext, useState, useEffect } from "react"
 import { AppContext } from "./AppContext"
 import { Courses } from "./Types"
-import { Dancing_Script } from "@next/font/google"
 import Dish from "./Dish"
 import LoadingAnimation from "./LoadingAnimation"
 import Separator from "./Separator"
+import { Dancing_Script } from "@next/font/google"
 
 const dancingScript = Dancing_Script({ subsets: ["latin"] })
 

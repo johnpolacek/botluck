@@ -1,5 +1,5 @@
 import untruncateJson from "untruncate-json"
-import { Courses, Dish, DishRaw } from "../../components/Types"
+import { Courses, DishRaw } from "../../components/Types"
 
 export const attemptToCompleteJSON = (incompleteJSON: string) => {
   let stack = []

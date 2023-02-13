@@ -91,7 +91,20 @@ const AppContextProvider: React.FC<{
   useEffect(() => {
     if (dishes.length > 0) {
       if (state.instructionsComplete === dishes.length) {
-        console.log("All done! Tokens used: " + state.tokensUsed)
+        ;(async () => {
+          // All done! Save the result
+          const response = await fetch("/api/save", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              data: state.potLuckData,
+              tokens: state.tokensUsed,
+            }),
+          })
+          console.log({ response })
+        })()
       } else {
         getRecipeInstructions(dishes[state.instructionsComplete])
       }

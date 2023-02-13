@@ -1,5 +1,6 @@
 import MealPlan from "./MealPlan"
 import Form from "./Form"
+import Recent from "./Recent"
 
 const App: React.FC = () => {
   return (
@@ -7,6 +8,7 @@ const App: React.FC = () => {
       <div className="w-full">
         <Form />
         <MealPlan />
+        <Recent />
       </div>
     </main>
   )

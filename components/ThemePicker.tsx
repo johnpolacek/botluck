@@ -23,7 +23,7 @@ const ThemePicker: React.FC = () => {
             required
             value={theme}
             onChange={(e) => setTheme(e.target.value)}
-            className="w-full rounded-md block border px-2 py-1 border-gray-300 shadow-sm focus:border-black focus:ring-black my-5 text-center"
+            className="w-full rounded-md block border px-2 py-1 border-gray-300 shadow-sm focus:border-black focus:ring-black mt-4 mb-2 text-center"
             placeholder={
               "e.g. Mexican, Chinese, International Night, Surf & Turf, etc."
             }
@@ -35,7 +35,7 @@ const ThemePicker: React.FC = () => {
               setTheme(themes[themeIndex])
               setThemeIndex(themeIndex + 1)
             }}
-            className="bg-primary-600 rounded-xl text-white font-medium px-6 py-2 mt-4"
+            className="bg-primary-600 rounded-xl text-white font-medium px-6 py-2 mt-2"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"

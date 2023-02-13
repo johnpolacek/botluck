@@ -1,4 +1,5 @@
-import admin from 'firebase-admin';
+import admin from "firebase-admin"
+import { PotLuckData } from "../../components/Types"
 
 const firebaseConfig = {
   apiKey: "AIzaSyA2iPM2mdJIQpccBjxQP89hQG8k7euSUcM",
@@ -6,73 +7,73 @@ const firebaseConfig = {
   projectId: "botluck-9205b",
   storageBucket: "botluck-9205b.appspot.com",
   messagingSenderId: "508136237783",
-  appId: "1:508136237783:web:3c79a9eaf3017ba8e89e92"
-};
+  appId: "1:508136237783:web:3c79a9eaf3017ba8e89e92",
+}
 
-let serviceAccount;
+let serviceAccount
 
 if (process.env.FIREBASE_ADMIN_SDK) {
-  serviceAccount = JSON.parse(process.env.FIREBASE_ADMIN_SDK);
+  serviceAccount = JSON.parse(process.env.FIREBASE_ADMIN_SDK)
 } else {
-  throw new Error("The FIREBASE_ADMIN_SDK environment variable is not set");
+  throw new Error("The FIREBASE_ADMIN_SDK environment variable is not set")
 }
 
-admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount),
-  databaseURL: `https://${firebaseConfig.projectId}.firebaseio.com`
-});
-
-const db = admin.database();
-
-// In this code, the usageCounter function increments the request counter for the current day.
-// The counter is stored in the requestCounters node of the Firebase Realtime Database
-// with the key being the date in YYYY - MM - DD format.
-// The function uses a transaction to ensure that the counter is incremented atomically.
-// The transaction either increments the current count or sets it to 1 if it doesn't exist yet.
-// Finally, the function logs the updated request count to the console.
-export const incrementUsageCounter = async () => {
-  const date = new Date().toISOString().substring(0, 10);
-  const counterRef = db.ref(`usageCounters/${date}`);
-
-  let requestCount = 0;
-  await counterRef.transaction(currentCount => {
-    if (currentCount) {
-      requestCount = currentCount + 1;
-      return requestCount;
-    }
-    return 1;
-  });
-
-  console.log(`Today's request count: ${requestCount}`);
-};
-
-export const getRequestCount = async () => {
-  const date = new Date();
-  const year = date.getFullYear();
-  const month = date.getMonth() + 1;
-  const day = date.getDate();
-  const requestCountRef = db.ref(`request_count/${year}/${month}/${day}`);
-
-  const snapshot = await requestCountRef.once('value');
-  const requestCount = snapshot.val() || 0;
-
-  return requestCount;
+try {
+  admin.instanceId()
+} catch (err) {
+  admin.initializeApp({
+    credential: admin.credential.cert(serviceAccount),
+    databaseURL: `https://${firebaseConfig.projectId}.firebaseio.com`,
+  })
 }
 
-export const getCumulativeRequestCount = async (): Promise<number> => {
-  const requestCountRef = db.ref('request_count');
+const db = admin.firestore()
 
-  const snapshot = await requestCountRef.once('value');
-  const requestCounts = snapshot.val();
+export const storePotLuckData = async (data: PotLuckData) => {
+  const res = await db.collection("potluck").add({
+    created: admin.firestore.FieldValue.serverTimestamp(),
+    data,
+  })
 
-  let cumulativeRequestCount = 0;
-  if (requestCounts) {
-    Object.values(requestCounts).forEach((countsByMonth: unknown) => {
-      Object.values(countsByMonth as { [key: string]: { [key: string]: number; }; }).forEach((countsByDay: unknown) => {
-        cumulativeRequestCount += Object.values(countsByDay as { [key: string]: number }).reduce((sum, count) => sum + count, 0);
-      });
-    });
+  return res.id
+}
+
+export const getRecentPotLucks = async () => {
+  console.log("getRecentPotLucks")
+  const potlucksRef = db.collection("potluck")
+  const snapshot = await potlucksRef.orderBy("created", "desc").limit(20).get()
+  const recentPotLucks = snapshot.docs.map((doc) => doc.data())
+  console.log({ ...recentPotLucks })
+  return recentPotLucks
+}
+
+export const increaseTokenUsage = async (tokensUsed: number) => {
+  // Get current date
+  const now = new Date()
+  const today = `${now.getFullYear()}-${now.getMonth() + 1}-${now.getDate()}`
+
+  const usageRef = db.collection("tokenUsage").doc(today)
+  const usageData = await (await usageRef.get()).data()
+
+  if (usageData) {
+    const newTokensUsed = usageData.data().tokensUsed + tokensUsed
+    return await usageRef.update({ tokensUsed: newTokensUsed })
+  } else {
+    return await db.collection("tokenUsage").doc(today).set({ tokensUsed })
   }
+}
 
-  return cumulativeRequestCount;
-};
+export const getCurrentTokenUsage = async () => {
+  // Get current date
+  const now = new Date()
+  const today = `${now.getFullYear()}-${now.getMonth() + 1}-${now.getDate()}`
+
+  const usageRef = db.collection("tokenUsage").doc(today)
+  const usageData = await (await usageRef.get()).data()
+
+  if (usageData) {
+    return usageData.data().tokensUsed
+  } else {
+    return 0
+  }
+}

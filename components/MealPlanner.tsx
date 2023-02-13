@@ -28,7 +28,7 @@ const MealPlanner = () => {
   return (
     <div className="py-8">
       <h3
-        className={`text-4xl font-bold w-full pb-6 text-primary-700 ${dancingScript.className}`}
+        className={`text-4xl font-bold w-full pb-4 text-primary-700 ${dancingScript.className}`}
       >
         Set up a meal plan
       </h3>
@@ -74,7 +74,7 @@ const MealPlanner = () => {
           />
         </div>
       </div>
-      <p className="pt-8 text-gray-600 max-w-lg mx-auto">
+      <p className="pt-4 text-gray-600 max-w-lg mx-auto">
         A potluck dinner for 10 guests should typically have 6 to 8 appetizers,
         2 to 3 main courses, 3 to 4 side dishes, and 2 to 3 desserts
       </p>
