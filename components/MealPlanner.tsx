@@ -1,5 +1,6 @@
 import React, { useContext } from "react"
 import { AppContext } from "./AppContext"
+import Heading from "./ui/Heading"
 import { Dancing_Script } from "@next/font/google"
 
 const dancingScript = Dancing_Script({ subsets: ["latin"] })
@@ -27,11 +28,7 @@ const MealPlanner = () => {
 
   return (
     <div className="py-8">
-      <h3
-        className={`text-4xl font-bold w-full pb-4 text-primary-700 ${dancingScript.className}`}
-      >
-        Set up a meal plan
-      </h3>
+      <Heading>Set up a meal plan</Heading>
       <div className="flex max-w-2xl mx-auto">
         <div className="flex-inline items-center w-full">
           <label className="text-right pr-2">Appetizers</label>

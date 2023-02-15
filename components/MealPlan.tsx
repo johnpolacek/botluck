@@ -1,51 +1,46 @@
-import React, { useContext, useState, useEffect } from "react"
-import { AppContext } from "./AppContext"
-import { Courses } from "./Types"
+import { Courses, PotLuckData } from "./Types"
 import Dish from "./Dish"
-import LoadingAnimation from "./LoadingAnimation"
-import Separator from "./Separator"
+import Separator from "./ui/Separator"
 import { Dancing_Script } from "@next/font/google"
 
 const dancingScript = Dancing_Script({ subsets: ["latin"] })
 
-const MealPlan = () => {
-  const { potLuckData, theme, isSubmitted } = useContext(AppContext)
+type Props = {
+  potLuckData: PotLuckData
+}
 
+const MealPlan = ({ potLuckData }: Props) => {
   return (
-    <div className={`py-8 ${isSubmitted ? "" : "hidden"}`}>
+    <div className="text-center">
       <h3
         className={`text-7xl text-primary-700 w-full pb-12 ${dancingScript.className}`}
       >
-        {theme}
+        {potLuckData.theme}
       </h3>
-      {potLuckData ? (
-        <>
-          {Object.keys(potLuckData.courses).map((course) => (
-            <div className="py-8" key={course}>
-              {potLuckData.courses[course as keyof Courses].length > 0 && (
-                <>
-                  <Separator />
-                  <div
-                    className={`text-4xl font-bold text-primary-500 w-full pb-12 ${dancingScript.className}`}
-                  >
-                    {course}
-                  </div>
-                  <div className="flex flex-wrap px-8 pb-8 justify-center">
-                    {Array.isArray(
-                      potLuckData.courses[course as keyof Courses]
-                    ) &&
-                      potLuckData.courses[course as keyof Courses]?.map(
-                        (dish, i) => <Dish key={`dish-${i}`} dish={dish} />
-                      )}
-                  </div>
-                </>
-              )}
-            </div>
-          ))}
-        </>
-      ) : (
-        <LoadingAnimation loadingText="Cooking up your dishes..." />
-      )}
+      {Object.keys(potLuckData.courses)
+        .sort()
+        .map((course) => (
+          <div className="py-8" key={course}>
+            {potLuckData.courses[course as keyof Courses].length > 0 && (
+              <>
+                <Separator />
+                <div
+                  className={`text-4xl font-bold text-primary-500 w-full pb-12 ${dancingScript.className}`}
+                >
+                  {course}
+                </div>
+                <div className="flex flex-wrap px-8 pb-8 justify-center">
+                  {Array.isArray(
+                    potLuckData.courses[course as keyof Courses]
+                  ) &&
+                    potLuckData.courses[course as keyof Courses]?.map(
+                      (dish, i) => <Dish key={`dish-${i}`} dish={dish} />
+                    )}
+                </div>
+              </>
+            )}
+          </div>
+        ))}
     </div>
   )
 }

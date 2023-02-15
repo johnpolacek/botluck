@@ -8,7 +8,7 @@ const Separator = () => {
         version="1.1"
         className="w-full h-full"
       >
-        <g id="layer1" transform="translate(-15.536 -18.1)" >
+        <g id="layer1" transform="translate(-15.536 -18.1)">
           <path
             fill="#E2A18D"
             id="path5062"
@@ -17,7 +17,7 @@ const Separator = () => {
         </g>
       </svg>
     </div>
-  );
-};
+  )
+}
 
-export default Separator;
+export default Separator

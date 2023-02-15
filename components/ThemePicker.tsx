@@ -2,6 +2,7 @@ import React, { useState } from "react"
 import { AppContext } from "./AppContext"
 import { getThemes } from "../utils/Themes"
 import { Dancing_Script } from "@next/font/google"
+import Heading from "./ui/Heading"
 
 const dancingScript = Dancing_Script({ subsets: ["latin"] })
 
@@ -13,11 +14,7 @@ const ThemePicker: React.FC = () => {
     <AppContext.Consumer>
       {({ theme, setTheme }) => (
         <div className="my-4 items-center space-x-3 pt-8 max-w-lg mx-auto">
-          <h3
-            className={`text-4xl font-bold text-primary-700 w-full ${dancingScript.className}`}
-          >
-            Enter a theme
-          </h3>
+          <Heading>Enter a theme</Heading>
           <input
             name="theme"
             required

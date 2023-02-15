@@ -1,10 +1,15 @@
 import React, { useEffect, useState } from "react"
-import { PotLuckData } from "./Types"
+import { PotLuckData, Courses } from "./Types"
 import { Dancing_Script } from "@next/font/google"
+import Link from "next/link"
+import Heading from "./ui/Heading"
+import Card from "./ui/Card"
+import Separator from "./ui/Separator"
 
 const dancingScript = Dancing_Script({ subsets: ["latin"] })
 
 type RecentPotLuck = {
+  id: string
   created: string
   data: PotLuckData
 }
@@ -31,23 +36,63 @@ const Recent = () => {
     if (!data) {
       return
     }
-
     const { recent } = await response.json()
 
     setRecentPotlucks(recent)
   }
 
   return (
-    <div className="pb-16 flex flex-col gap-2">
-      <h4 className="pb-2">Check out these recent Pot Luck Themes</h4>
-      {recentPotlucks &&
-        recentPotlucks.map((recentData: RecentPotLuck) => (
-          <div
-            className={`text-2xl font-bold text-blue-600 ${dancingScript.className}`}
-          >
-            {recentData.data.theme}
-          </div>
-        ))}
+    <div className="pb-16 text-center">
+      <Separator />
+      <Heading>Recently on Bot Luck...</Heading>
+      <div className="flex flex-wrap px-8 pb-8 justify-center">
+        {recentPotlucks &&
+          recentPotlucks.map((potluck: RecentPotLuck) => (
+            <Card className="w-[540px] mt-8" key={potluck.id}>
+              <div
+                className={`text-3xl py-2 font-bold text-blue-600 ${dancingScript.className}`}
+              >
+                {potluck.data.theme}
+              </div>
+              <>
+                {Object.keys(potluck.data.courses)
+                  .sort()
+                  .map((course) => (
+                    <div className="pt-6" key={course}>
+                      <div
+                        className={`text-2xl font-bold text-primary-400 w-full pb-4 ${dancingScript.className}`}
+                      >
+                        {course}
+                      </div>
+                      <div>
+                        {Array.isArray(
+                          potluck.data.courses[course as keyof Courses]
+                        ) &&
+                          potluck.data.courses[course as keyof Courses]?.map(
+                            (dish, i) => (
+                              <div
+                                className={`text-2xl font-bold text-primary-900 w-full pb-2 ${dancingScript.className}`}
+                                key={`dish-${i}`}
+                              >
+                                {dish.name}
+                              </div>
+                            )
+                          )}
+                      </div>
+                    </div>
+                  ))}
+              </>
+              <div className="pt-12 pb-4">
+                <Link
+                  className="bg-blue-600 text-white rounded-lg px-12 py-3 text-xl"
+                  href={`/recipes/${potluck.id}`}
+                >
+                  View Recipes
+                </Link>
+              </div>
+            </Card>
+          ))}
+      </div>
     </div>
   )
 }

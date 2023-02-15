@@ -1,21 +1,19 @@
 import { GetServerSideProps, NextPage } from "next"
 import Head from "next/head"
+import Link from "next/link"
 import Header from "../../components/Header"
-import App from "../../components/App"
 import Footer from "../../components/Footer"
-import { useRouter } from "next/router"
-import { AppContextProvider } from "../../components/AppContext"
 import { getPotLuck } from "../../lib/firebase/admin"
 import { PotLuckData } from "../../components/Types"
+import MealPlan from "../../components/MealPlan"
+import Recent from "../../components/Recent"
+import { Dancing_Script } from "@next/font/google"
+
+const dancingScript = Dancing_Script({ subsets: ["latin"] })
 
 type Props = { data: { created: string; data: PotLuckData } }
 
 const Recipe: NextPage<Props> = ({ data }) => {
-  const router = useRouter()
-  const { id } = router.query
-
-  console.log({ data })
-
   return (
     <div className="flex flex-col items-center justify-center min-h-screen">
       <Head>
@@ -23,12 +21,22 @@ const Recipe: NextPage<Props> = ({ data }) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Header />
-      <AppContextProvider>
-        <div className="flex-grow flex flex-col items-center justify-center">
-          <div>{id}</div>
-          <div>{JSON.stringify(data, null, 2)}</div>
+      <main className="flex-grow flex flex-col items-center justify-center py-12">
+        <div className="flex-grow flex flex-col items-center justify-center py-12">
+          {data ? (
+            <MealPlan potLuckData={data.data}></MealPlan>
+          ) : (
+            <div>Recipe not found</div>
+          )}
         </div>
-      </AppContextProvider>
+        <Link
+          className={`text-2xl text-blue-600 ${dancingScript.className}`}
+          href="/"
+        >
+          Generate your own
+        </Link>
+        <Recent />
+      </main>
       <Footer />
     </div>
   )
