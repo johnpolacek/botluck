@@ -25,7 +25,7 @@ const MealPlan = ({ potLuckData }: Props) => {
               <>
                 <Separator />
                 <div
-                  className={`text-4xl font-bold text-primary-500 w-full pb-12 ${dancingScript.className}`}
+                  className={`text-5xl font-bold text-primary-600 w-full pb-16 ${dancingScript.className}`}
                 >
                   {course}
                 </div>

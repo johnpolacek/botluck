@@ -71,7 +71,7 @@ const MealPlanner = () => {
           />
         </div>
       </div>
-      <p className="pt-4 text-gray-600 max-w-lg mx-auto">
+      <p className="pt-4 text-black max-w-lg mx-auto">
         A potluck dinner for 10 guests should typically have 6 to 8 appetizers,
         2 to 3 main courses, 3 to 4 side dishes, and 2 to 3 desserts
       </p>

@@ -32,7 +32,7 @@ const ThemePicker: React.FC = () => {
               setTheme(themes[themeIndex])
               setThemeIndex(themeIndex + 1)
             }}
-            className="bg-primary-600 rounded-xl text-white font-medium px-6 py-2 mt-2"
+            className="bg-primary-500 rounded-xl text-white font-medium px-6 py-2 mt-2"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"

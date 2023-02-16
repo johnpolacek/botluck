@@ -1,5 +1,14 @@
 import Document, { Head, Html, Main, NextScript } from "next/document"
 
+// dark background texture
+// background - color: #380b00;
+// background - image: url("https://www.transparenttextures.com/patterns/debut-light.png");
+
+// light background texture
+// background - color: #d1925a;
+// background - image: url("https://www.transparenttextures.com/patterns/green-cup.png");
+// /* This is mostly intended for prototyping; please download the pattern and re-host for production environments. Thank you! */
+
 class MyDocument extends Document {
   render() {
     return (
@@ -31,7 +40,7 @@ class MyDocument extends Document {
             content="https://twitterbio.com/og-image.png"
           />
         </Head>
-        <body>
+        <body className="bg-[#d1925a] bg-[url('/background.png')]">
           <Main />
           <NextScript />
         </body>

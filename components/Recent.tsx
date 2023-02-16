@@ -50,9 +50,17 @@ const Recent = () => {
           recentPotlucks.map((potluck: RecentPotLuck) => (
             <Card className="w-[540px] mt-8" key={potluck.id}>
               <div
-                className={`text-3xl py-2 font-bold text-blue-600 ${dancingScript.className}`}
+                className={`text-4xl py-2 font-bold text-primary-50 ${dancingScript.className}`}
               >
                 {potluck.data.theme}
+              </div>
+              <div className="pt-2 pb-4">
+                <Link
+                  className="bg-primary-500 text-primary-100 rounded-lg px-6 py-1"
+                  href={`/recipes/${potluck.id}`}
+                >
+                  View Recipes
+                </Link>
               </div>
               <>
                 {Object.keys(potluck.data.courses)
@@ -60,7 +68,7 @@ const Recent = () => {
                   .map((course) => (
                     <div className="pt-6" key={course}>
                       <div
-                        className={`text-2xl font-bold text-primary-400 w-full pb-4 ${dancingScript.className}`}
+                        className={`text-2xl font-bold text-primary-600 w-full pb-4 ${dancingScript.className}`}
                       >
                         {course}
                       </div>
@@ -71,7 +79,7 @@ const Recent = () => {
                           potluck.data.courses[course as keyof Courses]?.map(
                             (dish, i) => (
                               <div
-                                className={`text-2xl font-bold text-primary-900 w-full pb-2 ${dancingScript.className}`}
+                                className={`text-2xl font-bold text-primary-700 w-full pb-2 ${dancingScript.className}`}
                                 key={`dish-${i}`}
                               >
                                 {dish.name}
@@ -82,14 +90,6 @@ const Recent = () => {
                     </div>
                   ))}
               </>
-              <div className="pt-12 pb-4">
-                <Link
-                  className="bg-blue-600 text-white rounded-lg px-12 py-3 text-xl"
-                  href={`/recipes/${potluck.id}`}
-                >
-                  View Recipes
-                </Link>
-              </div>
             </Card>
           ))}
       </div>

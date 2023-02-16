@@ -2,6 +2,9 @@ import React, { useContext } from "react"
 import { AppContext } from "./AppContext"
 import ThemePicker from "./ThemePicker"
 import MealPlanner from "./MealPlanner"
+import { Dancing_Script } from "@next/font/google"
+
+const dancingScript = Dancing_Script({ subsets: ["latin"] })
 
 const Form: React.FC = () => {
   const context = useContext(AppContext)
@@ -82,23 +85,26 @@ const Form: React.FC = () => {
 
   return (
     <form
-      className={`max-w-3xl pt-8 pb-16 mx-auto mb-8 ${
+      className={`max-w-5xl pb-16 mx-auto ${
         context.isSubmitted ? "hidden" : ""
-      }`}
+      } ${dancingScript.className}`}
       onSubmit={onSubmitRequest}
     >
-      <h1 className="text-6xl max-w-3xl font-bold text-primary-600 mx-auto">
-        Generate recipes for a fun group Pot Luck Dinner
+      <h1 className="text-8xl font-bold text-primary-700 mx-auto">
+        Pot Luck Dinners
+      </h1>
+      <h1 className="text-2xl font-bold text-primary-700 tracking-wider mx-auto -mt-2 mb-6">
+        ~ powered by robots ~
       </h1>
       <div>
         <ThemePicker />
         <MealPlanner />
         <button
           type="submit"
-          className="bg-green-500 rounded-xl text-white font-medium text-2xl py-4 pl-12 pr-16 mt-4"
+          className="bg-primary-700 rounded-xl text-white font-medium text-2xl py-4 pl-12 pr-16 mt-4"
         >
           <span className="inline-block relative">
-            Generate your recipes{" "}
+            Generate Your Recipes{" "}
             <span className="font-thin text-4xl absolute -top-2 -right-8 pt-px">
               »
             </span>

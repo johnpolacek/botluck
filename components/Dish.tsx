@@ -24,7 +24,7 @@ const Dish = ({ dish }: { dish: Dish }) => {
             : null}
         </div>
       </div>
-      <div className="pt-8 flex-grow pb-4 w-full border-t border-primary-100">
+      <div className="pt-8 flex-grow pb-4 w-full border-t border-primary-400">
         {dish.instructions ? (
           <div className="whitespace-pre-wrap text-left w-full px-6">
             {dish.instructions}

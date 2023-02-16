@@ -22,7 +22,7 @@ const Recipe: NextPage<Props> = ({ data }) => {
       </Head>
       <Header />
       <main className="flex-grow flex flex-col items-center justify-center py-12">
-        <div className="flex-grow flex flex-col items-center justify-center py-12">
+        <div className="flex-grow flex flex-col items-center justify-center">
           {data ? (
             <MealPlan potLuckData={data.data}></MealPlan>
           ) : (
@@ -30,7 +30,7 @@ const Recipe: NextPage<Props> = ({ data }) => {
           )}
         </div>
         <Link
-          className={`text-2xl text-blue-600 ${dancingScript.className}`}
+          className={`text-3xl text-blue-600 pb-4 mb-16 ${dancingScript.className}`}
           href="/"
         >
           Generate your own
