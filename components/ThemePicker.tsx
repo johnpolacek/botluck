@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, useEffect, useRef } from "react"
 import { AppContext } from "./AppContext"
 import { getThemes } from "../utils/Themes"
 import Heading from "./ui/Heading"
@@ -7,6 +7,14 @@ const ThemePicker: React.FC = () => {
   const themes = getThemes()
   const [themeIndex, setThemeIndex] = useState<number>(0)
 
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    if (inputRef.current) {
+      inputRef.current.focus();
+    }
+  }, []);
+
   return (
     <AppContext.Consumer>
       {({ theme, setTheme }) => (
@@ -14,11 +22,12 @@ const ThemePicker: React.FC = () => {
           <Heading>Enter a theme</Heading>
           <input
             name="theme"
+            ref={inputRef}
             required
             value={theme}
             onChange={(e) => setTheme(e.target.value)}
-            className="w-full text-white bg-transparent text-lg sm:text-3xl block border-double border-b-4 sm:border-b-[6px] p-2 pb-3 border-primary-800 focus:outline-none mb-2 text-center"
-            placeholder={"e.g. International, Surf & Turf, etc."}
+            className="placeholder-primary-400 w-full text-white bg-transparent text-lg sm:text-3xl block border-double border-b-4 sm:border-b-[6px] p-2 pb-3 border-primary-800 focus:outline-none mb-2 text-center"
+            placeholder={"Type your theme here..."}
           />
           <p className="text-2xl text-primary-800">or</p>
           <button

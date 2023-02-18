@@ -90,9 +90,8 @@ export const getCurrentTokenUsage = async () => {
   const usageRef = db.collection("tokenUsage").doc(today)
   const usageData = await (await usageRef.get()).data()
 
-  if (usageData) {
-    return usageData.data().tokensUsed
-  } else {
-    return 0
-  }
+  console.log({ usageData })
+  console.log(typeof usageData?.tokensUsed)
+
+  return usageData?.tokensUsed || 0
 }

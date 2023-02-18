@@ -9,7 +9,7 @@ const GeneratedMealPlan = () => {
   return (
     <div className={`py-8 ${isSubmitted ? "" : "hidden"}`}>
       {potLuckData ? (
-        <MealPlan potLuckData={potLuckData} />
+        <MealPlan isGenerating={true} potLuckData={potLuckData} />
       ) : (
         <LoadingAnimation loadingText="Cooking up your dishes..." />
       )}

@@ -4,9 +4,10 @@ import Separator from "./ui/Separator"
 
 type Props = {
   potLuckData: PotLuckData
+  isGenerating?: boolean
 }
 
-const MealPlan = ({ potLuckData }: Props) => {
+const MealPlan = ({ potLuckData, isGenerating }: Props) => {
   return (
     <div className="text-center">
       <h3 className={`text-3xl sm:text-6xl text-primary-700 w-full pb-8`}>
@@ -27,7 +28,13 @@ const MealPlan = ({ potLuckData }: Props) => {
                     potLuckData.courses[course as keyof Courses]
                   ) &&
                     potLuckData.courses[course as keyof Courses]?.map(
-                      (dish, i) => <Dish key={`dish-${i}`} dish={dish} />
+                      (dish, i) => (
+                        <Dish
+                          scrollTo={isGenerating}
+                          key={`dish-${i}`}
+                          dish={dish}
+                        />
+                      )
                     )}
                 </div>
               </>

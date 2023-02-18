@@ -1,14 +1,30 @@
+import React, { useEffect, useRef } from "react"
 import { Dish } from "./Types"
 import Card from "./ui/Card"
 
-const Dish = ({ dish }: { dish: Dish }) => {
+const Dish = ({ dish, scrollTo }: { dish: Dish; scrollTo?: boolean }) => {
+  const targetRef = useRef<HTMLHeadingElement>(null)
   const name = dish.name
   const ingredients = dish.ingredients
+
+  // Scroll to this element when it is first being generated
+  // as signaled by when the array of ingredients is being populated
+  useEffect(() => {
+    if (scrollTo && targetRef.current) {
+      window.scrollTo({
+        top: targetRef.current.offsetTop,
+        behavior: "smooth",
+      })
+    }
+  }, [ingredients.length > 0])
 
   return (
     <Card>
       <div className="sm:pt-4 pb-4 sm:pb-8">
-        <h4 className="text-2xl sm:text-3xl pb-4 sm:pb-8 text-primary-700">
+        <h4
+          ref={targetRef}
+          className="text-2xl sm:text-3xl pb-4 sm:pb-8 text-primary-700"
+        >
           {name}
         </h4>
         <div className="grid sm:grid-cols-2 opacity-80 text-left sm:px-6 gap-x-4 gap-y-2 font-sans text-xs sm:text-sm">

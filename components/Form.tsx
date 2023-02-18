@@ -1,10 +1,31 @@
-import React, { useContext } from "react"
+import React, { useState, useContext, useEffect } from "react"
 import { AppContext } from "./AppContext"
 import ThemePicker from "./ThemePicker"
 import MealPlanner from "./MealPlanner"
 
 const Form: React.FC = () => {
   const context = useContext(AppContext)
+  const [isActive, setIsActive] = useState<boolean | null>()
+
+  useEffect(() => {
+    getIsActive()
+  }, [])
+
+  const getIsActive = async () => {
+    const response = await fetch("/api/usage", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+
+    const data = response.body
+    if (!data) {
+      return
+    }
+    const { usage } = await response.json()
+    setIsActive(usage)
+  }
 
   const onSubmitRequest = async (e: React.SyntheticEvent) => {
     e.preventDefault()
@@ -88,21 +109,49 @@ const Form: React.FC = () => {
       <div>
         <ThemePicker />
         <MealPlanner />
-        <button
-          type="submit"
-          className="bg-primary-500 rounded-xl text-white font-medium text-xl sm:text-3xl py-4 pl-12 pr-16 mt-2"
-          style={{
-            boxShadow: "inset 0 0 90px #5C2300",
-            textShadow: "0 0 2px rgb(0 0 0 / 80%)",
-          }}
-        >
-          <span className="inline-block relative">
-            Generate Your Recipes{" "}
-            <span className="font-thin text-4xl absolute -top-2 -right-8 pt-px">
-              »
-            </span>
-          </span>
-        </button>
+        {typeof isActive === "boolean" ? (
+          <>
+            {isActive ? (
+              <button
+                type="submit"
+                className="bg-primary-500 rounded-xl text-white font-medium text-xl sm:text-3xl py-4 pl-12 pr-16 mt-2"
+                style={{
+                  boxShadow: "inset 0 0 90px #5C2300",
+                  textShadow: "0 0 2px rgb(0 0 0 / 80%)",
+                }}
+              >
+                <span className="inline-block relative">
+                  Generate Your Recipes{" "}
+                  <span className="font-thin text-4xl absolute -top-2 -right-8 pt-px">
+                    »
+                  </span>
+                </span>
+              </button>
+            ) : (
+              <div
+                className="inline-block border-8 border-double border-primary-500 p-8 text-primary-800 mt-4"
+                style={{
+                  boxShadow: "rgba(149, 69, 53, 0.1) 0px 0px 90px inset",
+                }}
+              >
+                <div className="text-4xl">Our Apologies...</div>
+                <div className="text-lg pb-8">
+                  ~ The robots are resting after a busy day ~
+                </div>
+                <p className="pb-4">
+                  Every time the robots cook up a meal plan, it costs a little
+                  bit of money.
+                </p>
+                <p className="pb-4">
+                  Please come back tomorrow, or take a look <br />
+                  at some of other potlucks others have created below.
+                </p>
+              </div>
+            )}
+          </>
+        ) : (
+          <div className="h-40 w-20"></div>
+        )}
       </div>
     </form>
   )

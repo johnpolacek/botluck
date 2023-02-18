@@ -211,8 +211,6 @@ const AppContextProvider: React.FC<{
               updatedCourses[courseToUpdate as keyof Courses]
             if (updatedCourse && updatedCourse[dishIndex]) {
               updatedCourse[dishIndex].instructions = recipe
-                .replace(/^Instructions:? /, "")
-                .trim()
               updatedCourses[courseToUpdate as keyof Courses] = updatedCourse
               const newPotLuckData = {
                 theme: state.theme,
@@ -223,6 +221,24 @@ const AppContextProvider: React.FC<{
           }
         }
       }
+
+      // clean up recipe instructions at end to remove extraneous text
+      if (courseToUpdate && typeof dishIndex === "number") {
+        const updatedCourses = { ...state.potLuckData.courses }
+        const updatedCourse = updatedCourses[courseToUpdate as keyof Courses]
+        if (updatedCourse && updatedCourse[dishIndex]) {
+          updatedCourse[dishIndex].instructions = recipe
+            .split("Instructions:")[0]
+            .trimEnd()
+          updatedCourses[courseToUpdate as keyof Courses] = updatedCourse
+          const newPotLuckData = {
+            theme: state.theme,
+            courses: updatedCourses,
+          }
+          setPotLuckData(newPotLuckData)
+        }
+      }
+
       incrementTokensUsed((prompt.length + recipe.length) / 4)
       setInstructionsComplete(state.instructionsComplete + 1)
     }
