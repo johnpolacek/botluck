@@ -1,8 +1,5 @@
 import { Dish } from "./Types"
-import { Dancing_Script } from "@next/font/google"
 import Card from "./ui/Card"
-
-const dancingScript = Dancing_Script({ subsets: ["latin"] })
 
 const Dish = ({ dish }: { dish: Dish }) => {
   const name = dish.name
@@ -10,13 +7,11 @@ const Dish = ({ dish }: { dish: Dish }) => {
 
   return (
     <Card>
-      <div className="pt-4 pb-8">
-        <h4
-          className={`font-bold text-3xl pb-8 text-primary-700 ${dancingScript.className}`}
-        >
+      <div className="sm:pt-4 pb-4 sm:pb-8">
+        <h4 className="text-2xl sm:text-3xl pb-4 sm:pb-8 text-primary-700">
           {name}
         </h4>
-        <div className="grid grid-cols-2 text-left px-6 gap-x-4 gap-y-2">
+        <div className="grid sm:grid-cols-2 opacity-80 text-left sm:px-6 gap-x-4 gap-y-2 font-sans text-xs sm:text-sm">
           {ingredients
             ? ingredients.map((ingredient, i) => (
                 <p key={`ingredient-${i}`}>{ingredient}</p>
@@ -24,13 +19,13 @@ const Dish = ({ dish }: { dish: Dish }) => {
             : null}
         </div>
       </div>
-      <div className="pt-8 flex-grow pb-4 w-full border-t border-primary-400">
+      <div className="pt-4 sm:pt-8 flex-grow opacity-80 sm:pb-4 w-full border-t-2 sm:border-t border-primary-400 text-xs sm:text-sm">
         {dish.instructions ? (
-          <div className="whitespace-pre-wrap text-left w-full px-6">
+          <div className="whitespace-pre-wrap text-left w-full sm:px-6  font-sans">
             {dish.instructions}
           </div>
         ) : (
-          <div className="text-center italic text-gray-500">
+          <div className="text-center text-xl text-primary-700">
             Instructions coming soon...
           </div>
         )}

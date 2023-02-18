@@ -6,11 +6,11 @@ const Card = ({
   className?: string
 }) => (
   <div
-    className={`${className ? className : "w-[640px]"} max-w-full px-4 mb-8`}
+    className={`${className ? className : "sm:w-[640px]"} sm:px-4 mb-4 sm:mb-8`}
   >
     <div
       className="flex flex-col justify-start rounded-lg p-6 mb-6 h-full"
-      style={{ boxShadow: "inset 0 0 160px rgba(149, 69, 53, .25)" }}
+      style={{ boxShadow: "inset 0 0 90px rgba(149, 69, 53, .4)" }}
     >
       {children}
     </div>

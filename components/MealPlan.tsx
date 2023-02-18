@@ -1,9 +1,6 @@
 import { Courses, PotLuckData } from "./Types"
 import Dish from "./Dish"
 import Separator from "./ui/Separator"
-import { Dancing_Script } from "@next/font/google"
-
-const dancingScript = Dancing_Script({ subsets: ["latin"] })
 
 type Props = {
   potLuckData: PotLuckData
@@ -12,9 +9,7 @@ type Props = {
 const MealPlan = ({ potLuckData }: Props) => {
   return (
     <div className="text-center">
-      <h3
-        className={`text-7xl text-primary-700 w-full pb-12 ${dancingScript.className}`}
-      >
+      <h3 className={`text-3xl sm:text-6xl text-primary-700 w-full pb-8`}>
         {potLuckData.theme}
       </h3>
       {Object.keys(potLuckData.courses)
@@ -24,12 +19,10 @@ const MealPlan = ({ potLuckData }: Props) => {
             {potLuckData.courses[course as keyof Courses].length > 0 && (
               <>
                 <Separator />
-                <div
-                  className={`text-5xl font-bold text-primary-600 w-full pb-16 ${dancingScript.className}`}
-                >
+                <div className="text-3xl font-bold text-primary-700 w-full pb-16 mix-blend-hard-light">
                   {course}
                 </div>
-                <div className="flex flex-wrap px-8 pb-8 justify-center">
+                <div className="flex flex-wrap px-4 sm:px-8 pb-8 justify-center">
                   {Array.isArray(
                     potLuckData.courses[course as keyof Courses]
                   ) &&

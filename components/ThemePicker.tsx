@@ -1,10 +1,7 @@
 import React, { useState } from "react"
 import { AppContext } from "./AppContext"
 import { getThemes } from "../utils/Themes"
-import { Dancing_Script } from "@next/font/google"
 import Heading from "./ui/Heading"
-
-const dancingScript = Dancing_Script({ subsets: ["latin"] })
 
 const ThemePicker: React.FC = () => {
   const themes = getThemes()
@@ -13,26 +10,28 @@ const ThemePicker: React.FC = () => {
   return (
     <AppContext.Consumer>
       {({ theme, setTheme }) => (
-        <div className="my-4 items-center space-x-3 pt-8 max-w-lg mx-auto">
+        <div className="mt-4 sm:mt-0 sm:mb-4 items-center sm:space-x-3 max-w-lg mx-auto">
           <Heading>Enter a theme</Heading>
           <input
             name="theme"
             required
             value={theme}
             onChange={(e) => setTheme(e.target.value)}
-            className="w-full rounded-md block border px-2 py-1 border-gray-300 shadow-sm focus:border-black focus:ring-black mt-4 mb-2 text-center"
-            placeholder={
-              "e.g. Mexican, Chinese, International Night, Surf & Turf, etc."
-            }
+            className="w-full text-white bg-transparent text-lg sm:text-3xl block border-double border-b-4 sm:border-b-[6px] p-2 pb-3 border-primary-800 focus:outline-none mb-2 text-center"
+            placeholder={"e.g. International, Surf & Turf, etc."}
           />
-          <p>or</p>
+          <p className="text-2xl text-primary-800">or</p>
           <button
             onClick={(e) => {
               e.preventDefault()
               setTheme(themes[themeIndex])
               setThemeIndex(themeIndex + 1)
             }}
-            className="bg-primary-500 rounded-xl text-white font-medium px-6 py-2 mt-2"
+            className="bg-transparent text-lg rounded-xl text-white font-medium px-6 py-2 mt-2"
+            style={{
+              boxShadow: "inset 0 0 90px rgba(149, 69, 53, 0.75)",
+              textShadow: "0 0 2px rgb(0 0 0 / 80%)",
+            }}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"

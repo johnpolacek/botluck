@@ -111,12 +111,6 @@ const AppContextProvider: React.FC<{
     }
   }, [state.instructionsComplete])
 
-  useEffect(() => {
-    if (dishes.length > 0) {
-      document.documentElement.scrollTop = document.documentElement.scrollHeight
-    }
-  }, [dishes.length])
-
   const setMealPlan = (newMealPlan: MealPlan) => {
     setState((prevState) => ({ ...prevState, mealPlan: newMealPlan }))
   }

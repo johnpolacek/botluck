@@ -12,7 +12,7 @@ import Document, { Head, Html, Main, NextScript } from "next/document"
 class MyDocument extends Document {
   render() {
     return (
-      <Html lang="en">
+      <Html lang="en" style={{ fontSize: "20px" }}>
         <Head>
           <link rel="icon" href="/favicon.ico" />
           <meta
