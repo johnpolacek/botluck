@@ -7,16 +7,18 @@ const Dish = ({ dish, scrollTo }: { dish: Dish; scrollTo?: boolean }) => {
   const name = dish.name
   const ingredients = dish.ingredients
 
-  // Scroll to this element when it is first being generated
-  // as signaled by when the array of ingredients is being populated
+  // Scroll to this element when ingredients or instructions start generating
   useEffect(() => {
     if (scrollTo && targetRef.current) {
       window.scrollTo({
-        top: targetRef.current.offsetTop,
+        top: targetRef.current.offsetTop - 100,
         behavior: "smooth",
       })
     }
-  }, [ingredients.length > 0])
+  }, [
+    ingredients.length > 0,
+    dish.instructions && dish.instructions.length > 0,
+  ])
 
   return (
     <Card>

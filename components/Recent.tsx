@@ -73,7 +73,7 @@ const Recent = () => {
                       textShadow: "0 0 2px #613932",
                     }}
                   >
-                    View Recipes
+                    View Details
                   </Link>
                 </div>
                 <>
