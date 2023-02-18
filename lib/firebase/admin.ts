@@ -10,19 +10,15 @@ const firebaseConfig = {
   appId: "1:508136237783:web:3c79a9eaf3017ba8e89e92",
 }
 
-let serviceAccount
-
-if (process.env.FIREBASE_ADMIN_SDK) {
-  serviceAccount = JSON.parse(process.env.FIREBASE_ADMIN_SDK)
-} else {
-  throw new Error("The FIREBASE_ADMIN_SDK environment variable is not set")
-}
-
 try {
   admin.instanceId()
 } catch (err) {
   admin.initializeApp({
-    credential: admin.credential.cert(serviceAccount),
+    credential: admin.credential.cert({
+      projectId: firebaseConfig.projectId,
+      clientEmail: process.env.FIREBASE_CLIENT_EMAIL,
+      privateKey: process.env.FIREBASE_PRIVATE_KEY?.replace(/\\n/g, "\n"),
+    }),
     databaseURL: `https://${firebaseConfig.projectId}.firebaseio.com`,
   })
 }
@@ -46,6 +42,7 @@ export const getPotLuck = async (id: string) => {
   if (potLuckData && potLuckData.created) {
     potLuckData.created = potLuckData.created.toDate().toISOString()
   }
+
   return potLuckData
 }
 
