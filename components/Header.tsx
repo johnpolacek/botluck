@@ -15,7 +15,6 @@ export default function Header() {
         <h1 className={`text-3xl sm:text-4xl font-bold sm:ml-2 text-[#3e4347]`}>
           <span className="pr-1">Bot</span>
           <span className="pl-px pr-px">Luck</span>
-          <span>.fun</span>
         </h1>
       </Link>
       <p className="pr-8 sm:text-xl font-bold relative left-2 sm:left-6 text-gray-600">
