@@ -79,7 +79,7 @@ export const increaseTokenUsage = async (tokensUsed: number) => {
   }
 }
 
-export const getCurrentTokenUsage = async () => {
+export const getAboveDailyUsageLimit = async () => {
   // Get current date
   const now = new Date()
   const today = `${now.getFullYear()}-${now.getMonth() + 1}-${now.getDate()}`
@@ -87,8 +87,7 @@ export const getCurrentTokenUsage = async () => {
   const usageRef = db.collection("tokenUsage").doc(today)
   const usageData = await (await usageRef.get()).data()
 
-  console.log({ usageData })
-  console.log(typeof usageData?.tokensUsed)
-
-  return usageData?.tokensUsed || 0
+  return (usageData?.tokensUsed || 0) > MAX_DAILY_TOKENS
 }
+
+export const MAX_DAILY_TOKENS = 10000
