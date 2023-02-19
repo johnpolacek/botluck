@@ -19,11 +19,11 @@ const handler = async (req: Request): Promise<Response> => {
     return new Response("No prompt in the request", { status: 400 })
   }
 
-  const isAboveUsageLimit = await getAboveDailyUsageLimit()
+  // const isAboveUsageLimit = await getAboveDailyUsageLimit()
 
-  if (isAboveUsageLimit) {
-    return new Response("Hit daily usage limit", { status: 400 })
-  }
+  // if (isAboveUsageLimit) {
+  //   return new Response("Hit daily usage limit", { status: 400 })
+  // }
 
   const payload: OpenAIStreamPayload = {
     model: "text-davinci-003",

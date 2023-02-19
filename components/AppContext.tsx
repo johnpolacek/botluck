@@ -213,6 +213,12 @@ const AppContextProvider: React.FC<{
         done = doneReading
         const chunkValue = decoder.decode(value)
         if (chunkValue) {
+          if (doneReading) {
+            console.log("done reading!")
+          } else {
+            console.log({ chunkValue })
+          }
+
           recipe += chunkValue
           if (courseToUpdate && typeof dishIndex === "number") {
             const updatedCourses = { ...state.potLuckData.courses }

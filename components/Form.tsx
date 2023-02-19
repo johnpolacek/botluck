@@ -23,8 +23,8 @@ const Form: React.FC = () => {
     if (!data) {
       return
     }
-    const { usage } = await response.json()
-    setIsActive(usage)
+    const { isAboveLimit } = await response.json()
+    setIsActive(!isAboveLimit)
   }
 
   const onSubmitRequest = async (e: React.SyntheticEvent) => {
