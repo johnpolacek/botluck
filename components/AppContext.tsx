@@ -85,7 +85,10 @@ const AppContextProvider: React.FC<{
     if (state.ingredientsComplete && dishes.length > 0) {
       // when ingredients are complete, get the recipe instructions
       getRecipeInstructions(dishes[0])
-      document.documentElement.scrollTop = 0
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      })
     }
   }, [state.ingredientsComplete])
 

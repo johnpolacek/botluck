@@ -36,7 +36,7 @@ const Recent = () => {
       <div className="flex flex-wrap sm:px-8 pb-8 justify-center">
         {recentPotlucks &&
           recentPotlucks.map((potluck: PotLuck) => (
-            <PotluckCard potluck={potluck} />
+            <PotluckCard key={potluck.id} potluck={potluck} />
           ))}
       </div>
     </div>
