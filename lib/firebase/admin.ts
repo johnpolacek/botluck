@@ -63,6 +63,8 @@ export const getRecentPotLucks = async (startAfter?: string) => {
   return recentPotLucks
 }
 
+export const MAX_DAILY_TOKENS = 100000
+
 export const increaseTokenUsage = async (tokensUsed: number) => {
   // Get current date
   const now = new Date()
@@ -89,5 +91,3 @@ export const getAboveDailyUsageLimit = async () => {
 
   return (usageData?.tokensUsed || 0) > MAX_DAILY_TOKENS
 }
-
-export const MAX_DAILY_TOKENS = 10000

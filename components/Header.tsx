@@ -12,12 +12,12 @@ export default function Header() {
           width={18}
           height={18}
         />
-        <h1 className={`text-4xl sm:text-5xl font-bold sm:ml-2 text-[#3e4347]`}>
+        <h1 className={`text-4xl sm:text-5xl font-bold sm:ml-2 text-dark`}>
           <span className="pr-1">Bot</span>
           <span className="pl-px pr-px">Luck</span>
         </h1>
       </Link>
-      <p className="pt-1 pr-8 sm:text-xl font-bold relative left-2 sm:left-6 text-gray-600">
+      <p className="pt-1 pr-8 sm:text-xl font-bold relative left-2 sm:left-6 text-[rgba(0,0,0,.5)]">
         Created by{" "}
         <a className="text-blue-700" href="https://twitter.com/johnpolacek">
           @johnpolacek

@@ -25,12 +25,8 @@ const PotluckCard = ({ potluck }: { potluck: PotLuck }) => {
         </div>
         <div className="pt-2 pb-4">
           <Link
-            className="bg-transparent sm:text-lg text-primary-100 rounded-lg px-6 py-1"
+            className="bg-primary-400 sm:text-lg text-primary-100 rounded-lg px-6 py-1"
             href={`/recipes/${potluck.id}`}
-            style={{
-              boxShadow: "inset 0 0 60px rgba(149, 69, 53, 0.8)",
-              textShadow: "0 0 2px #613932",
-            }}
           >
             View Details
           </Link>

@@ -131,7 +131,7 @@ const Form: React.FC = () => {
               <div
                 className="inline-block border-8 border-double border-primary-500 p-8 text-primary-800 mt-4"
                 style={{
-                  boxShadow: "rgba(149, 69, 53, 0.1) 0px 0px 90px inset",
+                  boxShadow: "rgba(149, 69, 53, 0.2) 0px 0px 90px inset",
                 }}
               >
                 <div className="text-4xl">Our Apologies...</div>
