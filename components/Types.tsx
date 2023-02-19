@@ -90,4 +90,5 @@ export type AppContextType = {
   setInstructionsComplete: (instructionsComplete: number) => void
   tokensUsed: number
   incrementTokensUsed: (instructionsComplete: number) => void
+  generatedId?: number
 }

@@ -1,17 +1,20 @@
 import { Courses, PotLuckData } from "./Types"
 import Dishes from "./Dishes"
+import AllSet from "./AllSet"
 
 type Props = {
   potLuckData: PotLuckData
   isGenerating?: boolean
+  generatedId?: string
 }
 
-const MealPlan = ({ potLuckData, isGenerating }: Props) => {
+const MealPlan = ({ potLuckData, isGenerating, generatedId }: Props) => {
   return (
     <div className="text-center">
       <h3 className={`text-3xl sm:text-6xl text-primary-700 w-full pb-8`}>
         {potLuckData.theme}
       </h3>
+      {generatedId && <AllSet id={generatedId} />}
       {["Appetizers", "Main Course", "Side Dishes", "Dessert"].map(
         (course) =>
           potLuckData.courses[course as keyof Courses] && (

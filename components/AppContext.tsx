@@ -25,6 +25,7 @@ const AppContext = createContext<AppContextType>({
   setInstructionsComplete: () => {},
   tokensUsed: 0,
   incrementTokensUsed: () => {},
+  generatedId: undefined,
 })
 
 const AppContextProvider: React.FC<{
@@ -103,7 +104,8 @@ const AppContextProvider: React.FC<{
               tokens: state.tokensUsed,
             }),
           })
-          console.log({ response })
+          const { generatedId } = await response.json()
+          setGeneratedId(generatedId)
         })()
       } else {
         getRecipeInstructions(dishes[state.instructionsComplete])
@@ -147,6 +149,10 @@ const AppContextProvider: React.FC<{
       ...prevState,
       tokensUsed: state.tokensUsed + Math.ceil(newTokens),
     }))
+  }
+
+  const setGeneratedId = (generatedId: string) => {
+    setState((prevState) => ({ ...prevState, generatedId }))
   }
 
   const getRecipeInstructions = async (newDish: Dish) => {
