@@ -21,7 +21,7 @@ const Recipe: NextPage<Props> = ({ dish }) => {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen">
       <Head>
-        <title>BotLuck - {dish.name}</title>
+        <title>{`BotLuck - ${dish.name}`}</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Header />
