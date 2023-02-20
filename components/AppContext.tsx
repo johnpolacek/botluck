@@ -11,21 +11,21 @@ const defaultMealPlan: MealPlan = {
 
 const AppContext = createContext<AppContextType>({
   mealPlan: defaultMealPlan,
-  setMealPlan: () => {},
+  setMealPlan: () => { },
   theme: "",
-  setTheme: () => {},
+  setTheme: () => { },
   generatedPotLuck: "",
-  setGeneratedPotLuck: () => {},
+  setGeneratedPotLuck: () => { },
   potLuckData: null,
   isSubmitted: false,
-  setIsSubmitted: () => {},
+  setIsSubmitted: () => { },
   ingredientsComplete: false,
-  setIngredientsComplete: () => {},
+  setIngredientsComplete: () => { },
   instructionsComplete: 0,
-  setInstructionsComplete: () => {},
+  setInstructionsComplete: () => { },
   tokensUsed: 0,
-  incrementTokensUsed: () => {},
-  generatedId: undefined,
+  incrementTokensUsed: () => { },
+  generatedId?: undefined,
 })
 
 const AppContextProvider: React.FC<{
@@ -96,7 +96,7 @@ const AppContextProvider: React.FC<{
   useEffect(() => {
     if (dishes.length > 0) {
       if (state.instructionsComplete === dishes.length) {
-        ;(async () => {
+        ; (async () => {
           // All done! Save the result
           const response = await fetch("/api/save", {
             method: "POST",
@@ -161,9 +161,8 @@ const AppContextProvider: React.FC<{
   }
 
   const getRecipeInstructions = async (newDish: Dish) => {
-    const prompt = `Generate recipe instructions for ${
-      newDish.name
-    } with ingredient of ${newDish.ingredients.toString()}.`
+    const prompt = `Generate recipe instructions for ${newDish.name
+      } with ingredient of ${newDish.ingredients.toString()}.`
     const tokens = Math.ceil(prompt.length / 4) + 300
 
     const response = await fetch("/api/generate", {
