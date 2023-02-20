@@ -25,7 +25,7 @@ const AppContext = createContext<AppContextType>({
   setInstructionsComplete: () => { },
   tokensUsed: 0,
   incrementTokensUsed: () => { },
-  generatedId?: undefined,
+  generatedId: '',
 })
 
 const AppContextProvider: React.FC<{
@@ -40,7 +40,7 @@ const AppContextProvider: React.FC<{
     potLuckData: null as PotLuckData | null,
     instructionsComplete: 0,
     tokensUsed: 0,
-    generatedId: undefined,
+    generatedId: '',
   })
 
   useEffect(() => {
@@ -109,7 +109,6 @@ const AppContextProvider: React.FC<{
             }),
           })
           const { id } = await response.json()
-          console.log({ id })
           setGeneratedId(id)
         })()
       } else {
