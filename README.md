@@ -386,12 +386,7 @@ Every request that comes into the API is tracked for how many tokens it uses whi
 
 Calculating your usage is not an exact science as you can't control the exact length of what the response will be. The best we can do is make a calculated guess.
 
-I'd rather not have this app cost me lots of money, so I'll want to put some daily rate limiting on it. I'll implement a daily usage count where I can keep track of how many tokens it has consumed and turn it off when it hits a limit.
-
-
-
-
-
+I'd rather not have this app cost me lots of money, so I'll want to put some daily rate limiting on it. I added a daily usage tracker where I keep track of how many tokens it has consumed and disable it when it hits a limit.
 
 
 ### Deploying
@@ -402,14 +397,3 @@ To make the app available to the public, we can deploy to Vercel. We can create 
 In looking at the usage graphs on my account, it looks like each individual recipe will consume about 132 tokens. We can round up to 150 to be safe with some buffer.
 
 Every language model has a [different pricing](https://openai.com/api/pricing/), with Davinci being the most expensive and best. It costs 2¢ per 1K tokens. This means at $18 our free tier can handle 900k tokens. For a 30 day month, that would be 30k tokens per day. With 150 tokens per recipe, we can generate about 200 per day. That's just for the name and ingredients.
-
-
-Limit requests per day. Track this in Firebase. 4 characters per token, 620 tokens = 1 cent for 2480 characters
-
-If hit limit, allow purchase of credits. $1 = 5 credits
-
-Store reference in local storage on device
-
-Instacart Affiliate
-
-https://instacart-tastemakers.zendesk.com/hc/en-us/articles/8801040243476-Make-your-site-shoppable

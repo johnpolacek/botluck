@@ -5,11 +5,11 @@ import Card from "./ui/Card"
 const Dish = ({
   dish,
   scrollTo,
-  showInstacart,
+  instacartLink,
 }: {
   dish: Dish
   scrollTo?: boolean
-  showInstacart?: boolean
+  instacartLink?: string
 }) => {
   const targetRef = useRef<HTMLHeadingElement>(null)
   const name = dish.name
@@ -46,14 +46,20 @@ const Dish = ({
               ))
             : null}
         </div>
-        {showInstacart && (
-          <div className="w-full text-center flex items-center justify-center pt-6 -mb-2">
-            <div
-              id="shop-with-instacart-v1"
-              data-affiliate_id="2482"
-              data-source_origin="affiliate_hub"
-              data-affiliate_platform="recipe_widget"
-            ></div>
+        {instacartLink && (
+          <div className="pt-8">
+            <a
+              href={instacartLink}
+              aria-label="shop with instacart"
+              className="inline-flex items-center font-semibold justify-center bg-[rgb(0,61,41)] rounded-xl px-8 py-2 font-sans text-white"
+            >
+              <span className="text-xs pr-1">Get ingredients with</span>
+              <img
+                src="https://www.instacart.com/assets/Instacart_Logo_AllWhite-319e1f075674f75ad7818d194682c04c.svg"
+                alt=""
+                className="w-16 h-8 inline-block"
+              />
+            </a>
           </div>
         )}
       </div>
