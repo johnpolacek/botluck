@@ -70,7 +70,8 @@ export const getServerSideProps: GetServerSideProps = async ({
   const recipeIndex = recipe ? parseInt(recipe.toString()) : 0
 
   if (data) {
-    Object.keys(data.data.courses).forEach((course) => {
+    const courseNames = ["Appetizers", "Main Course", "Side Dishes", "Dessert"]
+    courseNames.forEach((course) => {
       data.data.courses[course as keyof Courses].forEach(
         (dishData: Dish, index: number) => {
           if (index === recipeIndex) {
