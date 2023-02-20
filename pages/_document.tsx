@@ -29,7 +29,7 @@ class MyDocument extends Document {
           <meta name="twitter:title" content="Twitter Bio Generator" />
           <meta
             name="twitter:description"
-            content="Generate your next Twitter bio in seconds."
+            content="Botluck is a Pot Luck Dinner Generator powered by AI"
           />
           <meta
             property="og:image"

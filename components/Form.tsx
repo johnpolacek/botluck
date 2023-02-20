@@ -114,16 +114,25 @@ const Form: React.FC = () => {
             {isActive ? (
               <button
                 type="submit"
-                className="bg-primary-500 rounded-xl text-white font-medium text-xl sm:text-3xl py-4 pl-12 pr-16 mt-2"
-                style={{
-                  boxShadow: "inset 0 0 90px #5C2300",
-                  textShadow: "0 0 2px rgb(0 0 0 / 80%)",
-                }}
+                className="bg-primary-700 rounded-xl text-white font-medium text-xl sm:text-3xl py-4 px-12 mt-2"
               >
                 <span className="inline-block relative">
                   Generate Your Recipes{" "}
-                  <span className="font-thin text-4xl absolute -top-2 -right-8 pt-px">
-                    »
+                  <span className="inline-block relative top-1">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke-width="1.5"
+                      stroke="currentColor"
+                      class="w-6 h-6"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M11.25 4.5l7.5 7.5-7.5 7.5m-6-15l7.5 7.5-7.5 7.5"
+                      />
+                    </svg>
                   </span>
                 </span>
               </button>

@@ -7,13 +7,13 @@ const ThemePicker: React.FC = () => {
   const themes = getThemes()
   const [themeIndex, setThemeIndex] = useState<number>(0)
 
-  const inputRef = useRef<HTMLInputElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null)
 
   useEffect(() => {
     if (inputRef.current) {
-      inputRef.current.focus();
+      inputRef.current.focus()
     }
-  }, []);
+  }, [])
 
   return (
     <AppContext.Consumer>
@@ -36,11 +36,7 @@ const ThemePicker: React.FC = () => {
               setTheme(themes[themeIndex])
               setThemeIndex(themeIndex + 1)
             }}
-            className="bg-transparent text-lg rounded-xl text-white font-medium px-6 py-2 mt-2"
-            style={{
-              boxShadow: "inset 0 0 90px rgba(149, 69, 53, 0.75)",
-              textShadow: "0 0 2px rgb(0 0 0 / 80%)",
-            }}
+            className="bg-primary-400 text-lg rounded-xl text-white font-medium px-6 py-2 mt-2"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
