@@ -32,8 +32,8 @@ const Dish = ({ dish, scrollTo }: { dish: Dish; scrollTo?: boolean }) => {
         <div className="grid sm:grid-cols-2 opacity-80 text-left sm:px-6 gap-x-4 gap-y-2 font-sans text-xs sm:text-sm">
           {ingredients
             ? ingredients.map((ingredient, i) => (
-                <p key={`ingredient-${i}`}>{ingredient}</p>
-              ))
+              <p itemProp="recipeIngredient" key={`ingredient-${i}`}>{ingredient}</p>
+            ))
             : null}
         </div>
       </div>
