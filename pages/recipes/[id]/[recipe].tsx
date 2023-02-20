@@ -1,31 +1,28 @@
 import { GetServerSideProps, NextPage } from "next"
 import Script from "next/script"
 import Head from "next/head"
-import Header from "../../components/Header"
-import Footer from "../../components/Footer"
-import { getPotLuck } from "../../lib/firebase/admin"
-import { Courses, PotLuckData } from "../../components/Types"
-import RecipeDetail from "../../components/RecipeDetail"
+import Header from "../../../components/Header"
+import Footer from "../../../components/Footer"
+import { getPotLuck } from "../../../lib/firebase/admin"
+import { Courses, PotLuckData } from "../../../components/Types"
+import Dish from "../../../components/Dish"
 
-type Props = { data: { created: string; data: PotLuckData } }
+type Props = { dish: Dish }
 
-const Recipe: NextPage<Props> = ({ data }) => {
-  const recipeName = data.data.theme
-  const ingredients: string[] = []
-  Object.keys(data.data.courses).forEach((course) => {
-    data.data.courses[course as keyof Courses].forEach((dish) => {
-      ingredients.concat(dish.ingredients)
-    })
-  })
+const Recipe: NextPage<Props> = ({ dish }) => {
+  const recipeName = dish.name
+  const ingredients: string[] = dish.ingredients
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen">
       <Head>
-        <title>BotLuck - {data.data.theme}</title>
+        <title>BotLuck - ${dish.name}</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Header />
-      <RecipeDetail potLuckData={data.data} />
+      <div className="text-center py-8">
+        <Dish dish={dish} />
+      </div>
       <Footer />
       <Script
         id="instacart-script"
@@ -65,10 +62,26 @@ export const getServerSideProps: GetServerSideProps = async ({
     "public, s-maxage=100000, stale-while-revalidate=1000000"
   )
 
-  const { id } = query
+  const { id, recipe } = query
   const data = id ? await getPotLuck(id as string) : null
 
-  return { props: { data } }
+  let dish = null
+
+  const recipeIndex = recipe ? parseInt(recipe.toString()) : 0
+
+  if (data) {
+    Object.keys(data.data.courses).forEach((course) => {
+      data.data.courses[course as keyof Courses].forEach(
+        (dishData: Dish, index: number) => {
+          if (index === recipeIndex) {
+            dish = dishData
+          }
+        }
+      )
+    })
+  }
+
+  return { props: { dish } }
 }
 
 export default Recipe

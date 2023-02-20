@@ -2,7 +2,15 @@ import React, { useEffect, useRef } from "react"
 import { Dish } from "./Types"
 import Card from "./ui/Card"
 
-const Dish = ({ dish, scrollTo }: { dish: Dish; scrollTo?: boolean }) => {
+const Dish = ({
+  dish,
+  scrollTo,
+  showInstacart,
+}: {
+  dish: Dish
+  scrollTo?: boolean
+  showInstacart?: boolean
+}) => {
   const targetRef = useRef<HTMLHeadingElement>(null)
   const name = dish.name
   const ingredients = dish.ingredients
@@ -32,10 +40,22 @@ const Dish = ({ dish, scrollTo }: { dish: Dish; scrollTo?: boolean }) => {
         <div className="grid sm:grid-cols-2 opacity-80 text-left sm:px-6 gap-x-4 gap-y-2 font-sans text-xs sm:text-sm">
           {ingredients
             ? ingredients.map((ingredient, i) => (
-              <p itemProp="recipeIngredient" key={`ingredient-${i}`}>{ingredient}</p>
-            ))
+                <p itemProp="recipeIngredient" key={`ingredient-${i}`}>
+                  {ingredient}
+                </p>
+              ))
             : null}
         </div>
+        {showInstacart && (
+          <div className="w-full text-center flex items-center justify-center pt-6 -mb-2">
+            <div
+              id="shop-with-instacart-v1"
+              data-affiliate_id="2482"
+              data-source_origin="affiliate_hub"
+              data-affiliate_platform="recipe_widget"
+            ></div>
+          </div>
+        )}
       </div>
       <div className="pt-4 sm:pt-8 flex-grow opacity-80 sm:pb-4 w-full border-t-2 sm:border-t border-primary-400 text-xs sm:text-sm">
         {dish.instructions ? (

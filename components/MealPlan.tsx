@@ -11,7 +11,10 @@ type Props = {
 const MealPlan = ({ potLuckData, isGenerating, generatedId }: Props) => {
   return (
     <div itemScope itemType="https://schema.org/Recipe" className="text-center">
-      <h3 itemProp="name" className={`text-3xl sm:text-6xl text-primary-700 w-full pb-8`}>
+      <h3
+        itemProp="name"
+        className={`text-3xl sm:text-6xl text-primary-700 w-full pb-8`}
+      >
         {potLuckData.theme}
       </h3>
       {generatedId && <AllSet id={generatedId} />}

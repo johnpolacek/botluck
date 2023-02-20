@@ -16,7 +16,13 @@ const RecipeDetail = ({ potLuckData }: { potLuckData: PotLuckData }) => {
         )}
       </div>
       <div className="-mt-16 mb-16">
-        <div id="shop-with-instacart-v1" data-affiliate_id="2482" data-source_origin="affiliate_hub" data-affiliate_platform="recipe_widget"></div></div>
+        <div
+          id="shop-with-instacart-v1"
+          data-affiliate_id="2482"
+          data-source_origin="affiliate_hub"
+          data-affiliate_platform="recipe_widget"
+        ></div>
+      </div>
       <Link
         className={`rounded-lg bg-primary-600 text-white px-8 py-2 text-3xl pb-4 -mt-8 mb-16`}
         href="/"

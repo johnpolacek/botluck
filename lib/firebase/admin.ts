@@ -51,10 +51,10 @@ export const getRecentPotLucks = async (startAfter?: string) => {
   const potlucksRef = db.collection("potluck")
   const snapshot = startAfter
     ? await potlucksRef
-      .orderBy("created", "desc")
-      .startAfter(startAfter)
-      .limit(6)
-      .get()
+        .orderBy("created", "desc")
+        .startAfter(startAfter)
+        .limit(6)
+        .get()
     : await potlucksRef.orderBy("created", "desc").limit(6).get()
   const recentPotLucks = snapshot.docs.map((doc) => {
     const data = doc.data()

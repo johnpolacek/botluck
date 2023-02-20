@@ -1,23 +1,23 @@
-import { Menu, Transition } from "@headlessui/react";
+import { Menu, Transition } from "@headlessui/react"
 import {
   CheckIcon,
   ChevronDownIcon,
   ChevronUpIcon,
-} from "@heroicons/react/20/solid";
-import { Fragment } from "react";
+} from "@heroicons/react/20/solid"
+import { Fragment } from "react"
 
 function classNames(...classes: string[]) {
-  return classes.filter(Boolean).join(" ");
+  return classes.filter(Boolean).join(" ")
 }
 
-export type VibeType = "Professional" | "Casual" | "Funny";
+export type VibeType = "Professional" | "Casual" | "Funny"
 
 interface DropDownProps {
-  vibe: VibeType;
-  setVibe: (vibe: VibeType) => void;
+  vibe: VibeType
+  setVibe: (vibe: VibeType) => void
 }
 
-let vibes: VibeType[] = ["Professional", "Casual", "Funny"];
+let vibes: VibeType[] = ["Professional", "Casual", "Funny"]
 
 export default function DropDown({ vibe, setVibe }: DropDownProps) {
   return (
@@ -73,5 +73,5 @@ export default function DropDown({ vibe, setVibe }: DropDownProps) {
         </Menu.Items>
       </Transition>
     </Menu>
-  );
+  )
 }
