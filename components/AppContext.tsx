@@ -40,6 +40,7 @@ const AppContextProvider: React.FC<{
     potLuckData: null as PotLuckData | null,
     instructionsComplete: 0,
     tokensUsed: 0,
+    generatedId: undefined,
   })
 
   useEffect(() => {
@@ -107,8 +108,9 @@ const AppContextProvider: React.FC<{
               tokens: state.tokensUsed,
             }),
           })
-          const { generatedId } = await response.json()
-          setGeneratedId(generatedId)
+          const { id } = await response.json()
+          console.log({ id })
+          setGeneratedId(id)
         })()
       } else {
         getRecipeInstructions(dishes[state.instructionsComplete])
@@ -213,12 +215,6 @@ const AppContextProvider: React.FC<{
         done = doneReading
         const chunkValue = decoder.decode(value)
         if (chunkValue) {
-          if (doneReading) {
-            console.log("done reading!")
-          } else {
-            console.log({ chunkValue })
-          }
-
           recipe += chunkValue
           if (courseToUpdate && typeof dishIndex === "number") {
             const updatedCourses = { ...state.potLuckData.courses }
@@ -241,10 +237,14 @@ const AppContextProvider: React.FC<{
       if (courseToUpdate && typeof dishIndex === "number") {
         const updatedCourses = { ...state.potLuckData.courses }
         const updatedCourse = updatedCourses[courseToUpdate as keyof Courses]
-        if (updatedCourse && updatedCourse[dishIndex]) {
+        if (
+          updatedCourse &&
+          updatedCourse[dishIndex] &&
+          recipe.includes("Instructions:")
+        ) {
           updatedCourse[dishIndex].instructions = recipe
-            .split("Instructions:")[0]
-            .trimEnd()
+            .split("Instructions:")[1]
+            .replace(/(^\s+|\s+$)/g, "")
           updatedCourses[courseToUpdate as keyof Courses] = updatedCourse
           const newPotLuckData = {
             theme: state.theme,
@@ -277,6 +277,7 @@ const AppContextProvider: React.FC<{
         setInstructionsComplete,
         tokensUsed: state.tokensUsed,
         incrementTokensUsed,
+        generatedId: state.generatedId,
       }}
     >
       {children}

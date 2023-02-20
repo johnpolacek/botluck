@@ -1,5 +1,4 @@
 import { OpenAIStream, OpenAIStreamPayload } from "../../utils/OpenAIStream"
-import { getAboveDailyUsageLimit } from "../../lib/firebase/admin"
 
 if (!process.env.OPENAI_API_KEY) {
   throw new Error("Missing env var from OpenAI")
@@ -18,12 +17,6 @@ const handler = async (req: Request): Promise<Response> => {
   if (!prompt) {
     return new Response("No prompt in the request", { status: 400 })
   }
-
-  // const isAboveUsageLimit = await getAboveDailyUsageLimit()
-
-  // if (isAboveUsageLimit) {
-  //   return new Response("Hit daily usage limit", { status: 400 })
-  // }
 
   const payload: OpenAIStreamPayload = {
     model: "text-davinci-003",

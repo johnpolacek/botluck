@@ -6,6 +6,8 @@ import LoadingAnimation from "./LoadingAnimation"
 const GeneratedMealPlan = () => {
   const { potLuckData, isSubmitted, generatedId } = useContext(AppContext)
 
+  console.log({ generatedId })
+
   return (
     <div className={`py-8 ${isSubmitted ? "" : "hidden"}`}>
       {potLuckData ? (

@@ -26,6 +26,7 @@ try {
 const db = admin.firestore()
 
 export const storePotLuckData = async (data: PotLuckData) => {
+  console.log("storePotLuckData")
   const res = await db.collection("potluck").add({
     created: admin.firestore.FieldValue.serverTimestamp(),
     data,
@@ -52,9 +53,9 @@ export const getRecentPotLucks = async (startAfter?: string) => {
     ? await potlucksRef
         .orderBy("created", "desc")
         .startAfter(startAfter)
-        .limit(20)
+        .limit(6)
         .get()
-    : await potlucksRef.orderBy("created", "desc").limit(20).get()
+    : await potlucksRef.orderBy("created", "desc").limit(6).get()
   const recentPotLucks = snapshot.docs.map((doc) => {
     const data = doc.data()
     data.id = doc.id
@@ -63,9 +64,10 @@ export const getRecentPotLucks = async (startAfter?: string) => {
   return recentPotLucks
 }
 
-export const MAX_DAILY_TOKENS = 100000
+export const MAX_DAILY_TOKENS = 10000
 
 export const increaseTokenUsage = async (tokensUsed: number) => {
+  console.log("increaseTokenUsage")
   // Get current date
   const now = new Date()
   const today = `${now.getFullYear()}-${now.getMonth() + 1}-${now.getDate()}`
@@ -74,7 +76,7 @@ export const increaseTokenUsage = async (tokensUsed: number) => {
   const usageData = await (await usageRef.get()).data()
 
   if (usageData) {
-    const newTokensUsed = usageData.data().tokensUsed + tokensUsed
+    const newTokensUsed = usageData.tokensUsed + tokensUsed
     return await usageRef.update({ tokensUsed: newTokensUsed })
   } else {
     return await db.collection("tokenUsage").doc(today).set({ tokensUsed })
@@ -88,6 +90,8 @@ export const getAboveDailyUsageLimit = async () => {
 
   const usageRef = db.collection("tokenUsage").doc(today)
   const usageData = await (await usageRef.get()).data()
+
+  console.log("tokens used: " + (usageData?.tokensUsed || 0))
 
   return (usageData?.tokensUsed || 0) > MAX_DAILY_TOKENS
 }

@@ -3,7 +3,6 @@ import { storePotLuckData, increaseTokenUsage } from "../../lib/firebase/admin"
 export default async (req: any, res: any) => {
   try {
     const { data, tokens } = req.body
-    console.log("save", { data, tokens })
     const id = await storePotLuckData(data)
     await increaseTokenUsage(tokens)
     res.status(200).json({ message: "Potluck data stored successfully", id })

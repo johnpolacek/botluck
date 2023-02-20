@@ -11,7 +11,7 @@ const Dish = ({ dish, scrollTo }: { dish: Dish; scrollTo?: boolean }) => {
   useEffect(() => {
     if (scrollTo && targetRef.current) {
       window.scrollTo({
-        top: targetRef.current.offsetTop - 100,
+        top: targetRef.current.offsetTop - 72,
         behavior: "smooth",
       })
     }
