@@ -26,7 +26,6 @@ try {
 const db = admin.firestore()
 
 export const storePotLuckData = async (data: PotLuckData) => {
-  console.log("storePotLuckData")
   const res = await db.collection("potluck").add({
     created: admin.firestore.FieldValue.serverTimestamp(),
     data,
@@ -67,7 +66,6 @@ export const getRecentPotLucks = async (startAfter?: string) => {
 export const MAX_DAILY_TOKENS = 20000
 
 export const increaseTokenUsage = async (tokensUsed: number) => {
-  console.log("increaseTokenUsage")
   // Get current date
   const now = new Date()
   const today = `${now.getFullYear()}-${now.getMonth() + 1}-${now.getDate()}`
@@ -90,8 +88,6 @@ export const getAboveDailyUsageLimit = async () => {
 
   const usageRef = db.collection("tokenUsage").doc(today)
   const usageData = await (await usageRef.get()).data()
-
-  console.log("tokens used: " + (usageData?.tokensUsed || 0))
 
   return (usageData?.tokensUsed || 0) > MAX_DAILY_TOKENS
 }
