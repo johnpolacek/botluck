@@ -37,6 +37,15 @@ export default function Footer() {
       <div className="pt-4 text-xl text-[rgba(0,0,0,0.5)]">
         Inspired by{" "}
         <a
+          href="https://vercel.com/blog/gpt-3-app-next-js-vercel-edge-functions"
+          target="_blank"
+          rel="noreferrer"
+          className="font-bold hover:underline transition underline-offset-2 text-blue-700"
+        >
+          this blog post
+        </a>{" "}
+        by
+        <a
           href="https://www.elmghari.com/"
           target="_blank"
           rel="noreferrer"
