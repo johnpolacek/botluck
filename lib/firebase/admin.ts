@@ -50,10 +50,10 @@ export const getRecentPotLucks = async (startAfter?: string) => {
   const potlucksRef = db.collection("potluck")
   const snapshot = startAfter
     ? await potlucksRef
-        .orderBy("created", "desc")
-        .startAfter(startAfter)
-        .limit(6)
-        .get()
+      .orderBy("created", "desc")
+      .startAfter(startAfter)
+      .limit(6)
+      .get()
     : await potlucksRef.orderBy("created", "desc").limit(6).get()
   const recentPotLucks = snapshot.docs.map((doc) => {
     const data = doc.data()
@@ -63,7 +63,7 @@ export const getRecentPotLucks = async (startAfter?: string) => {
   return recentPotLucks
 }
 
-export const MAX_DAILY_TOKENS = 20000
+export const MAX_DAILY_TOKENS = 500000
 
 export const increaseTokenUsage = async (tokensUsed: number) => {
   // Get current date
