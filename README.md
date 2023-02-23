@@ -13,6 +13,8 @@ I created a local fork of the [TwitterBio repository](https://github.com/Nutlope
 
 Next, I signed up for an [OpenAI Dev Account](https://openai.com/api/) so I could have access to the [GPT-3 API](https://platform.openai.com/docs/). 
 
+![Open AI API Docs Screenshot](https://files.realpython.com/media/openai-api-key-page.5aa1e51f6ba2.png)
+
 
 ### Building the Form
 
@@ -64,14 +66,21 @@ Our form submit will look very much like the [blog post example](https://vercel.
 
 Ultimately, we need our form to create a prompt that gets good results from the OpenAI API. It is nice to use the [Open AI Playground](https://platform.openai.com/playground) to experiment with different prompt formats.
 
+### Handling the Data Stream
 
-### Using AI to Write Code
+Data from the OpenAI API comes through as a data stream in string chunks. 
 
 In the TwitterBio example, handling the response is fairly trivial as it is just a string. In our case, we are going to get a list of courses, each with a name and ingredient list. Ideally, we would like to have this data be structured [https://github.com/johnpolacek/botluck/blob/main/components/Types.tsx](like this).
 
 Fortunately, in our prompt we can specify that we want the response to be formatted as JSON. This is great, but there's a big catch!
 
-When JSON is streamed, it will be incomplete. The full response from the API can take quite a long time. Rather than wait for it to finish, it would be nice to be able to display it as it streams.
+The data is streamed in chunks and when JSON is streamed, it will be incomplete and invalid. We could wait for it to finish, but the full response from the API can take quite a long time. 
+
+There is no version of the API that returns instant results. This is because of a fundamental way in which Chat GPT and other AI text generators work. The literally add one word at a time. It doesn't know the full result of its response until it step-by-step gets to the end. See [What Is ChatGPT Doing … and Why Does It Work?](https://writings.stephenwolfram.com/2023/02/what-is-chatgpt-doing-and-why-does-it-work/) by Stephen Wolfram for more info.
+
+Rather than wait for it to finish, it would be nice to be able to display it as it streams and to do that we'll need to be able to parse incomplete JSON.
+
+### Using AI to Write Code
 
 Do I really want to spend a bunch of time trying to write my own incomplete JSON parsing solution? Surely someone else must have written one. I [searched StackOverflow](https://stackoverflow.com/search?q=parse+incomplete+JSON&s=6979732a-ead3-4306-b198-313c399fa85b) and didn't turn up anything all that useful (well later on I did find a nice [untruncate-json library](https://github.com/dphilipson/untruncate-json) but forget that for now).
 

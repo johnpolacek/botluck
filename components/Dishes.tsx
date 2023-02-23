@@ -23,7 +23,7 @@ const Dishes = ({ course, dishes, isGenerating }: Props) => {
         {dishes.map((dish, i) => (
           <Dish
             instacartLink={
-              isGenerating && id
+              isGenerating || !id
                 ? ""
                 : `https://www.instacart.com/store/partner_recipes?recipeSourceUrl=https%3A%2F%2Fwww.botluck.fun%2Frecipes%2F${id}%2F${i}&utm_source=instacart_growth_partnerships&utm_medium=partner_recipe_unknown&recipeSourceOrigin=unknown&aff_id=2482&offer_id=1&affiliate_platform=recipe_widget&content_id=b4897fbb-fc05-4f43-bb62-a17669f0eae7`
             }
