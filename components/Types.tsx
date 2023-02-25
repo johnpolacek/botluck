@@ -1,6 +1,6 @@
 export type PotLuck = {
   id: string
-  created: string
+  created: { _seconds: number; _nanoseconds: number }
   data: PotLuckData
 }
 
@@ -31,47 +31,47 @@ export type Dish = {
 
 export type DishRaw =
   | {
-      name: string
-      Name?: never
-      Recipe?: never
-      ingredients: string[]
-      Ingredients?: never
-    }
+    name: string
+    Name?: never
+    Recipe?: never
+    ingredients: string[]
+    Ingredients?: never
+  }
   | {
-      name?: never
-      Name: string
-      Recipe?: never
-      ingredients: string[]
-      Ingredients?: never
-    }
+    name?: never
+    Name: string
+    Recipe?: never
+    ingredients: string[]
+    Ingredients?: never
+  }
   | {
-      name?: never
-      Name: never
-      Recipe?: string
-      ingredients: string[]
-      Ingredients?: never
-    }
+    name?: never
+    Name: never
+    Recipe?: string
+    ingredients: string[]
+    Ingredients?: never
+  }
   | {
-      name: string
-      Name?: never
-      Recipe?: never
-      ingredients?: never
-      Ingredients: string[]
-    }
+    name: string
+    Name?: never
+    Recipe?: never
+    ingredients?: never
+    Ingredients: string[]
+  }
   | {
-      name?: never
-      Name: string
-      Recipe?: never
-      ingredients?: never
-      Ingredients: string[]
-    }
+    name?: never
+    Name: string
+    Recipe?: never
+    ingredients?: never
+    Ingredients: string[]
+  }
   | {
-      name?: never
-      Name: never
-      Recipe?: string
-      ingredients?: never
-      Ingredients: string[]
-    }
+    name?: never
+    Name: never
+    Recipe?: string
+    ingredients?: never
+    Ingredients: string[]
+  }
 
 export type AppContextType = {
   mealPlan: MealPlan
