@@ -44,7 +44,7 @@ export default function Footer() {
         >
           this blog post
         </a>{" "}
-        by
+        by{" "}
         <a
           href="https://www.elmghari.com/"
           target="_blank"

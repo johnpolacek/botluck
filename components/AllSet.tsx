@@ -42,14 +42,13 @@ const AllSet = ({ id }: { id: string }) => {
         value={`https://botluck.fun/recipes/${id}`}
       />
       <p
-        className={`mt-px mb-2 text-primary-900 ${
-          isCopied ? "opacity-100" : "opacity-0"
-        }`}
+        className={`mt-px mb-2 text-primary-900 ${isCopied ? "opacity-100" : "opacity-0"
+          }`}
       >
         <span className="relative top-[2px] left-px">✓</span> copied
       </p>
       <Link
-        className="inline-block mt-2 rounded px-8 pt-1 pb-2 bg-primary-500 text-white"
+        className="inline-block mt-2 rounded px-8 pt-1 pb-2 bg-primary-500 text-white text-xl"
         href={`/recipes/${id}`}
       >
         go to recipe page

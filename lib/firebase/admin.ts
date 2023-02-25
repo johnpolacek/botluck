@@ -1,4 +1,5 @@
 import admin from "firebase-admin"
+import { firestore } from "firebase-admin"
 import { PotLuckData } from "../../components/Types"
 
 const firebaseConfig = {
@@ -46,13 +47,13 @@ export const getPotLuck = async (id: string) => {
   return potLuckData
 }
 
-export const getRecentPotLucks = async (startAfter?: string) => {
+export const getRecentPotLucks = async (startAfter?: { _seconds: number; _nanoseconds: number }) => {
   const potlucksRef = db.collection("potluck")
   const snapshot = startAfter
     ? await potlucksRef
       .orderBy("created", "desc")
-      .startAfter(startAfter)
       .limit(6)
+      .startAfter(startAfter ? new firestore.Timestamp(startAfter._seconds, startAfter._nanoseconds) : '')
       .get()
     : await potlucksRef.orderBy("created", "desc").limit(6).get()
   const recentPotLucks = snapshot.docs.map((doc) => {
