@@ -1,4 +1,4 @@
-import { OpenAIStream, OpenAIStreamPayload } from "../../utils/OpenAIStream"
+import { OpenChatGPTStream, ChatGPTStreamPayload, Message } from "../../utils/OpenAIStream"
 
 if (!process.env.OPENAI_API_KEY) {
   throw new Error("Missing env var from OpenAI")
@@ -9,18 +9,19 @@ export const config = {
 }
 
 const handler = async (req: Request): Promise<Response> => {
-  const { prompt, tokens } = (await req.json()) as {
+  const { prompt, tokens, messages } = (await req.json()) as {
     prompt?: string
     tokens?: number
+    messages?: Message[]
   }
 
-  if (!prompt) {
-    return new Response("No prompt in the request", { status: 400 })
+  if (!prompt && !messages) {
+    return new Response("No prompt or messages in the request", { status: 400 })
   }
 
-  const payload: OpenAIStreamPayload = {
-    model: "text-davinci-003",
-    prompt,
+  const payload: ChatGPTStreamPayload = {
+    model: "gpt-3.5-turbo",
+    messages: messages || [{ "role": "user", "content": prompt } as Message],
     temperature: 0.7,
     top_p: 1,
     frequency_penalty: 0,
@@ -30,7 +31,7 @@ const handler = async (req: Request): Promise<Response> => {
     n: 1,
   }
 
-  const stream = await OpenAIStream(payload)
+  const stream = await OpenChatGPTStream(payload)
   return new Response(stream)
 }
 
