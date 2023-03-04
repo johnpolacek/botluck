@@ -19,25 +19,25 @@ class MyDocument extends Document {
             name="description"
             content="Pot Luck Dinner Generator powered by AI"
           />
-          <meta property="og:site_name" content="Botluck" />
+          <meta property="og:site_name" content="BotLuck" />
           <meta
             property="og:description"
             content="Pot Luck Dinner Generator powered by AI"
           />
-          <meta property="og:title" content="Botluck" />
+          <meta property="og:title" content="BotLuck" />
           <meta name="twitter:card" content="summary_large_image" />
-          <meta name="twitter:title" content="Botluck - Pot Luck Dinner Generator" />
+          <meta name="twitter:title" content="BotLuck - Pot Luck Dinner Generator" />
           <meta
             name="twitter:description"
-            content="Botluck is a Pot Luck Dinner Generator powered by AI"
+            content="BotLuck is a Pot Luck Dinner Generator powered by AI"
           />
           <meta
             property="og:image"
-            content="https://botluck.fun/og-image.png"
+            content="https://BotLuck.fun/og-image.png"
           />
           <meta
             name="twitter:image"
-            content="https://botluck.fun/og-image.png"
+            content="https://BotLuck.fun/og-image.png"
           />
         </Head>
         <body className="bg-[#d1925a] bg-[url('/background.png')]">
