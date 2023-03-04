@@ -24,6 +24,17 @@ export default function Footer() {
         </a>
       </div>
       <div className="text-xl text-[rgba(0,0,0,0.5)]">
+        Open sourced on{" "}
+        <a
+          href="https://github.com/johnpolacek/botluck"
+          target="_blank"
+          rel="noreferrer"
+          className="font-bold hover:underline transition underline-offset-2 text-blue-700"
+        >
+          Github
+        </a>
+      </div>
+      <div className="text-xl text-[rgba(0,0,0,0.5)]">
         You can follow me at{" "}
         <a
           href="https://twitter.com/johnpolacek"
