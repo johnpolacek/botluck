@@ -26,7 +26,7 @@ class MyDocument extends Document {
           />
           <meta property="og:title" content="Botluck" />
           <meta name="twitter:card" content="summary_large_image" />
-          <meta name="twitter:title" content="Twitter Bio Generator" />
+          <meta name="twitter:title" content="Botluck - Pot Luck Dinner Generator" />
           <meta
             name="twitter:description"
             content="Botluck is a Pot Luck Dinner Generator powered by AI"
