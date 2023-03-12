@@ -40,7 +40,7 @@ const Recent = ({ loadMore }: { loadMore?: boolean }) => {
     <div className="pb-16 text-center">
       <Separator />
       <Heading>Recently on Bot Luck...</Heading>
-      <div className="flex flex-wrap sm:px-8 pb-8 justify-center">
+      <div className="flex flex-wrap py-4 justify-center">
         {recentPotlucks &&
           recentPotlucks.map((potluck: PotLuck) => (
             <PotluckCard key={potluck.id} potluck={potluck} />

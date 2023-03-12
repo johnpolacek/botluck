@@ -15,7 +15,7 @@ const PotluckCard = ({ potluck }: { potluck: PotLuck }) => {
   const router = useRouter()
 
   return (
-    <Card className="w-full sm:w-[540px] mt-8" key={potluck.id}>
+    <Card className="w-full sm:w-[400px]" key={potluck.id}>
       <div
         className="cursor-pointer"
         onClick={(e) => {
@@ -24,7 +24,7 @@ const PotluckCard = ({ potluck }: { potluck: PotLuck }) => {
         }}
       >
         <div
-          className="text-2xl sm:text-4xl py-2 font-bold text-primary-50"
+          className="text-xl sm:text-2xl font-bold text-primary-50"
           style={{
             textShadow: "0px 0px 2px #613932",
           }}
@@ -34,7 +34,7 @@ const PotluckCard = ({ potluck }: { potluck: PotLuck }) => {
         <div className="pb-4 italic text-primary-600">
           Created on {formatDateFromSeconds(potluck.created._seconds)}
         </div>
-        <div className="pt-2 pb-4">
+        <div>
           <Link
             className="bg-primary-400 sm:text-lg text-primary-100 rounded-lg px-6 py-1"
             href={`/recipes/${potluck.id}`}
@@ -46,16 +46,16 @@ const PotluckCard = ({ potluck }: { potluck: PotLuck }) => {
           {["Appetizers", "Main Course", "Side Dishes", "Dessert"].map(
             (course) =>
               Array.isArray(potluck.data.courses[course as keyof Courses]) &&
-              potluck.data.courses[course as keyof Courses].length > 0 ? (
+                potluck.data.courses[course as keyof Courses].length > 0 ? (
                 <div className="pt-6" key={course}>
-                  <div className="text-lg sm:text-2xl font-bold text-primary-700 w-full pb-4 mix-blend-hard-light">
+                  <div className="text-lg font-bold text-primary-700 w-full pb-2 mix-blend-hard-light">
                     {course}
                   </div>
                   <div>
                     {potluck.data.courses[course as keyof Courses].map(
                       (dish, i) => (
                         <div
-                          className="text-lg sm:text-xl font-bold text-primary-700 w-full pb-2"
+                          className="font-bold text-primary-700 w-full"
                           key={`dish-${i}`}
                         >
                           {dish.name}
