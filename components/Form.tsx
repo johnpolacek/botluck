@@ -30,22 +30,27 @@ const Form: React.FC = () => {
   const onSubmitRequest = async (e: React.SyntheticEvent) => {
     e.preventDefault()
     context.setIsSubmitted(true)
-    const prompt = `Generate recipes with ingredients in JSON format for a pot luck dinner in the theme of ${context.theme
-      } with ${context.mealPlan.appetizers
+    const prompt = `Generate recipes with ingredients in JSON format for a pot luck dinner in the theme of ${
+      context.theme
+    } with ${
+      context.mealPlan.appetizers
         ? context.mealPlan.appetizers + " appetizers, "
         : ""
-      } ${context.mealPlan.mains ? context.mealPlan.mains + " main courses, " : ""
-      } ${context.mealPlan.sides ? context.mealPlan.sides + " side dishes" : ""
-      } ${context.mealPlan.desserts
+    } ${
+      context.mealPlan.mains ? context.mealPlan.mains + " main courses, " : ""
+    } ${
+      context.mealPlan.sides ? context.mealPlan.sides + " side dishes" : ""
+    } ${
+      context.mealPlan.desserts
         ? " and " + context.mealPlan.desserts + " desserts"
         : ""
-      }. Your response must be in JSON format as {"Appetizers": Dish[],"Main Course": Dish[],"Side Dishes": Dish[],"Dessert": Dish[]} where type Dish = { name: string; ingredients: string[]}.`
+    }. Your response must be in JSON format as {"Appetizers": Dish[],"Main Course": Dish[],"Side Dishes": Dish[],"Dessert": Dish[]} where type Dish = { name: string; ingredients: string[]}.`
     const tokens =
       (context.mealPlan.appetizers +
         context.mealPlan.mains +
         context.mealPlan.sides +
         context.mealPlan.desserts) *
-      200 +
+        200 +
       Math.ceil(prompt.length / 4)
     const response = await fetch("/api/generate", {
       method: "POST",

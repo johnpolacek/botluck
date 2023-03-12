@@ -11,11 +11,13 @@ type Props = { dish: Dish }
 
 const Recipe: NextPage<Props> = ({ dish }) => {
   const recipeEmbed = {
-    __html: `{"@context":"https://schema.org/","@type":"Recipe","name":"${dish.name
-      }","Name":"${dish.name
-      }","author":"BotLuck","recipeIngredient":${JSON.stringify(
-        dish.ingredients
-      )}}`,
+    __html: `{"@context":"https://schema.org/","@type":"Recipe","name":"${
+      dish.name
+    }","Name":"${
+      dish.name
+    }","author":"BotLuck","recipeIngredient":${JSON.stringify(
+      dish.ingredients
+    )}}`,
   }
 
   return (

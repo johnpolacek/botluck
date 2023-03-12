@@ -47,14 +47,24 @@ export const getPotLuck = async (id: string) => {
   return potLuckData
 }
 
-export const getRecentPotLucks = async (startAfter?: { _seconds: number; _nanoseconds: number }) => {
+export const getRecentPotLucks = async (startAfter?: {
+  _seconds: number
+  _nanoseconds: number
+}) => {
   const potlucksRef = db.collection("potluck")
   const snapshot = startAfter
     ? await potlucksRef
-      .orderBy("created", "desc")
-      .limit(6)
-      .startAfter(startAfter ? new firestore.Timestamp(startAfter._seconds, startAfter._nanoseconds) : '')
-      .get()
+        .orderBy("created", "desc")
+        .limit(6)
+        .startAfter(
+          startAfter
+            ? new firestore.Timestamp(
+                startAfter._seconds,
+                startAfter._nanoseconds
+              )
+            : ""
+        )
+        .get()
     : await potlucksRef.orderBy("created", "desc").limit(6).get()
   const recentPotLucks = snapshot.docs.map((doc) => {
     const data = doc.data()

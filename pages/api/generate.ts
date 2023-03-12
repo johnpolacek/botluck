@@ -1,4 +1,8 @@
-import { OpenChatGPTStream, ChatGPTStreamPayload, Message } from "../../utils/OpenAIStream"
+import {
+  OpenChatGPTStream,
+  ChatGPTStreamPayload,
+  Message,
+} from "../../utils/OpenAIStream"
 
 if (!process.env.OPENAI_API_KEY) {
   throw new Error("Missing env var from OpenAI")
@@ -21,7 +25,7 @@ const handler = async (req: Request): Promise<Response> => {
 
   const payload: ChatGPTStreamPayload = {
     model: "gpt-3.5-turbo",
-    messages: messages || [{ "role": "user", "content": prompt } as Message],
+    messages: messages || [{ role: "user", content: prompt } as Message],
     temperature: 0.7,
     top_p: 1,
     frequency_penalty: 0,

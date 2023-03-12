@@ -5,8 +5,8 @@ import {
 } from "eventsource-parser"
 
 export type Message = {
-  role: string;
-  content: string;
+  role: string
+  content: string
 }
 
 export interface ChatGPTStreamPayload {
@@ -63,13 +63,16 @@ export async function OpenChatGPTStream(payload: ChatGPTStreamPayload) {
             if (!text) {
               return
             }
-            if (!isStreaming && text.replace(/\n/g, '').replace(/\s/g, '') === '') {
+            if (
+              !isStreaming &&
+              text.replace(/\n/g, "").replace(/\s/g, "") === ""
+            ) {
               // this is a prefix character (i.e., "\n\n"), do nothing
               return
             }
             const queue = encoder.encode(text)
             controller.enqueue(queue)
-            isStreaming = true;
+            isStreaming = true
           } catch (e) {
             // maybe parse error
             controller.error(e)

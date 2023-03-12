@@ -11,7 +11,9 @@ const App: React.FC = () => {
       <div className="w-full">
         <Form />
         <GeneratedMealPlan />
-        {(!context.isSubmitted || context.ingredientsComplete) && <Recent loadMore={true} />}
+        {(!context.isSubmitted || context.ingredientsComplete) && (
+          <Recent loadMore={true} />
+        )}
       </div>
     </main>
   )
