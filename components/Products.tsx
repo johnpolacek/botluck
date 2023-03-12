@@ -8,7 +8,7 @@ const Products = () => {
     <div className="pb-16 text-center">
       <Separator />
       <Heading>Product Recommendations</Heading>
-      <div className="flex gap-8 justify-between pt-4 max-w-4xl mx-auto">
+      <div className="flex flex-col md:flex-row gap-8 justify-between pt-4 max-w-4xl mx-auto">
         <Product
           name="Starfrit Cast Iron Skillet"
           link="https://howl.me/cjjgtF0eWKU"
