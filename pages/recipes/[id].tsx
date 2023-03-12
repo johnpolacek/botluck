@@ -5,6 +5,7 @@ import Header from "../../components/Header"
 import Footer from "../../components/Footer"
 import { getPotLuck } from "../../lib/firebase/admin"
 import { Courses, PotLuckData } from "../../components/Types"
+import Products from "../../components/Products"
 import RecipeDetail from "../../components/RecipeDetail"
 
 type Props = { data: { created: string; data: PotLuckData } }
@@ -26,6 +27,9 @@ const Recipe: NextPage<Props> = ({ data }) => {
       </Head>
       <Header />
       <RecipeDetail potLuckData={data.data} />
+      <div className="-mt-8">
+        <Products />
+      </div>
       <Footer />
       <Script
         id="instacart-script"

@@ -2,6 +2,7 @@ import React, { useContext } from "react"
 import GeneratedMealPlan from "./GeneratedMealPlan"
 import { AppContext } from "./AppContext"
 import Form from "./Form"
+import Products from "./Products"
 import Recent from "./Recent"
 
 const App: React.FC = () => {
@@ -11,6 +12,7 @@ const App: React.FC = () => {
       <div className="w-full">
         <Form />
         <GeneratedMealPlan />
+        <Products />
         {(!context.isSubmitted || context.ingredientsComplete) && (
           <Recent loadMore={true} />
         )}

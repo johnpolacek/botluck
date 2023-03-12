@@ -46,7 +46,7 @@ const PotluckCard = ({ potluck }: { potluck: PotLuck }) => {
           {["Appetizers", "Main Course", "Side Dishes", "Dessert"].map(
             (course) =>
               Array.isArray(potluck.data.courses[course as keyof Courses]) &&
-                potluck.data.courses[course as keyof Courses].length > 0 ? (
+              potluck.data.courses[course as keyof Courses].length > 0 ? (
                 <div className="pt-6" key={course}>
                   <div className="text-lg font-bold text-primary-700 w-full pb-2 mix-blend-hard-light">
                     {course}
