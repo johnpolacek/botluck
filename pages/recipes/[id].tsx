@@ -3,6 +3,7 @@ import Script from "next/script"
 import Head from "next/head"
 import Header from "../../components/Header"
 import Footer from "../../components/Footer"
+import Link from "next/link"
 import { getPotLuck } from "../../lib/firebase/admin"
 import { Courses, PotLuckData } from "../../components/Types"
 import Products from "../../components/Products"
@@ -26,6 +27,7 @@ const Recipe: NextPage<Props> = ({ data }) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Header />
+      <Link href="/" className="text-lg text-white px-6 py-2 bg-primary-500 mt-4 rounded-xl">Generate Your Own BotLuck</Link>
       <RecipeDetail potLuckData={data.data} />
       <div className="-mt-8">
         <Products />
