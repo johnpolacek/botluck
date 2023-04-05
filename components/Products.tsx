@@ -7,7 +7,7 @@ const Products = () => {
   return (
     <div className="pb-16 text-center">
       <Separator />
-      <Heading>Product Recommendations</Heading>
+      <Heading>Robots Recommend</Heading>
       <div className="flex flex-col md:flex-row gap-8 justify-between pt-4 max-w-4xl mx-auto">
         <Product
           name="Starfrit Cast Iron Skillet"
