@@ -9,7 +9,7 @@ This project generates group pot luck dinner recipes for you using AI.
 My inspiration for this project was a combination of [this blog post](https://vercel.com/blog/gpt-3-app-next-js-vercel-edge-functions)
  and [this tweet](https://twitter.com/seanlinehan/status/1620159578653720577)
 
-I created a local fork of the [TwitterBio repository](https://github.com/Nutlope/twitterbio) created by [https://www.elmghari.com/](Hassan El Mghari) aka [Nutlope](https://twitter.com/nutlope). (Note: There are lots of other [AI Templates](https://vercel.com/templates/ai) available as well).
+I created a local fork of the [TwitterBio repository](https://github.com/Nutlope/twitterbio) created by [Hassan El Mghari](https://www.elmghari.com/) aka [Nutlope](https://twitter.com/nutlope). (Note: There are lots of other [AI Templates](https://vercel.com/templates/ai) available as well).
 
 Next, I signed up for an [OpenAI Dev Account](https://openai.com/api/) so I could have access to the [GPT-3 API](https://platform.openai.com/docs/). 
 
