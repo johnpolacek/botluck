@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react"
-import { PotLuck } from "./Types"
+import type { PotLuck } from "./Types"
 import PotluckCard from "./PotluckCard"
 import Heading from "./ui/Heading"
 import Separator from "./ui/Separator"

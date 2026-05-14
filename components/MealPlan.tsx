@@ -1,4 +1,4 @@
-import { Courses, PotLuckData } from "./Types"
+import type { Courses, PotLuckData } from "./Types"
 import Dishes from "./Dishes"
 import AllSet from "./AllSet"
 

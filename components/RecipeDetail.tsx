@@ -1,7 +1,7 @@
 import Recent from "./Recent"
 import Link from "next/link"
 import MealPlan from "./MealPlan"
-import { PotLuckData } from "./Types"
+import type { PotLuckData } from "./Types"
 
 const RecipeDetail = ({ potLuckData }: { potLuckData: PotLuckData }) => {
   return (

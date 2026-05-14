@@ -1,4 +1,4 @@
-import { Courses, PotLuck } from "./Types"
+import type { Courses, PotLuck } from "./Types"
 import Link from "next/link"
 import Card from "./ui/Card"
 import { useRouter } from "next/router"

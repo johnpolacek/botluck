@@ -1,5 +1,11 @@
 {
   "private": true,
+  "engines": {
+    "node": "24.x"
+  },
+  "overrides": {
+    "postcss": "^8.5.14"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -8,34 +14,33 @@
     "format-watch": "npm run format && onchange \"**/*.{js,jsx,ts,tsx,json,md}\" -- prettier --write {{changed}}"
   },
   "dependencies": {
-    "@headlessui/react": "^1.7.7",
-    "@headlessui/tailwindcss": "^0.1.2",
-    "@heroicons/react": "^2.0.13",
-    "@next/font": "^13.1.6",
-    "@tailwindcss/forms": "^0.5.3",
-    "@vercel/analytics": "^0.1.8",
-    "eventsource-parser": "^0.0.5",
-    "firebase": "^9.17.1",
-    "firebase-admin": "^11.5.0",
-    "framer-motion": "^8.4.3",
-    "next": "latest",
+    "@headlessui/react": "^2.2.10",
+    "@headlessui/tailwindcss": "^0.2.2",
+    "@heroicons/react": "^2.2.0",
+    "@tailwindcss/forms": "^0.5.11",
+    "@vercel/analytics": "^2.0.1",
+    "eventsource-parser": "^3.0.8",
+    "firebase": "^12.13.0",
+    "firebase-admin": "^13.9.0",
+    "framer-motion": "^12.38.0",
+    "next": "^16.2.6",
     "onchange": "^7.1.0",
     "partial-json-parser": "^1.2.2",
-    "prettier": "^2.8.4",
-    "react": "18.2.0",
-    "react-dom": "18.2.0",
-    "react-hook-form": "^7.42.0",
-    "react-hot-toast": "^2.4.0",
-    "react-use-measure": "^2.1.1",
+    "prettier": "^3.8.3",
+    "react": "^19.2.6",
+    "react-dom": "^19.2.6",
+    "react-hook-form": "^7.75.0",
+    "react-hot-toast": "^2.6.0",
+    "react-use-measure": "^2.1.7",
     "untruncate-json": "^0.0.1"
   },
   "devDependencies": {
-    "@types/node": "18.11.3",
-    "@types/react": "18.0.21",
-    "@types/react-dom": "18.0.6",
-    "autoprefixer": "^10.4.12",
-    "postcss": "^8.4.18",
-    "tailwindcss": "^3.2.4",
-    "typescript": "4.9.4"
+    "@tailwindcss/postcss": "^4.3.0",
+    "@types/node": "^25.7.0",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "postcss": "^8.5.14",
+    "tailwindcss": "^4.3.0",
+    "typescript": "^6.0.3"
   }
 }

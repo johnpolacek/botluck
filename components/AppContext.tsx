@@ -1,6 +1,12 @@
 import React, { createContext, useState, useEffect } from "react"
 import { getDataFromStream } from "../lib/openai/generate"
-import { Dish, MealPlan, PotLuckData, Courses, AppContextType } from "./Types"
+import type {
+  Dish,
+  MealPlan,
+  PotLuckData,
+  Courses,
+  AppContextType,
+} from "./Types"
 
 const defaultMealPlan: MealPlan = {
   appetizers: 3,

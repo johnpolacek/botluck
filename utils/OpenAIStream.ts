@@ -1,8 +1,4 @@
-import {
-  createParser,
-  ParsedEvent,
-  ReconnectInterval,
-} from "eventsource-parser"
+import { createParser, type EventSourceMessage } from "eventsource-parser"
 
 export type Message = {
   role: string
@@ -50,39 +46,37 @@ export async function OpenChatGPTStream(payload: ChatGPTStreamPayload) {
 
   const stream = new ReadableStream({
     async start(controller) {
-      function onParse(event: ParsedEvent | ReconnectInterval) {
-        if (event.type === "event") {
-          const data = event.data
-          if (data === "[DONE]") {
-            controller.close()
+      function onEvent(event: EventSourceMessage) {
+        const data = event.data
+        if (data === "[DONE]") {
+          controller.close()
+          return
+        }
+        try {
+          const json = JSON.parse(data)
+          const text = json.choices[0].delta.content
+          if (!text) {
             return
           }
-          try {
-            const json = JSON.parse(data)
-            const text = json.choices[0].delta.content
-            if (!text) {
-              return
-            }
-            if (
-              !isStreaming &&
-              text.replace(/\n/g, "").replace(/\s/g, "") === ""
-            ) {
-              // this is a prefix character (i.e., "\n\n"), do nothing
-              return
-            }
-            const queue = encoder.encode(text)
-            controller.enqueue(queue)
-            isStreaming = true
-          } catch (e) {
-            // maybe parse error
-            controller.error(e)
+          if (
+            !isStreaming &&
+            text.replace(/\n/g, "").replace(/\s/g, "") === ""
+          ) {
+            // this is a prefix character (i.e., "\n\n"), do nothing
+            return
           }
+          const queue = encoder.encode(text)
+          controller.enqueue(queue)
+          isStreaming = true
+        } catch (e) {
+          // maybe parse error
+          controller.error(e)
         }
       }
 
       // stream response (SSE) from OpenAI may be fragmented into multiple chunks
       // this ensures we properly read chunks and invoke an event for each SSE event stream
-      const parser = createParser(onParse)
+      const parser = createParser({ onEvent })
       // https://web.dev/streams/#asynchronous-iteration
       for await (const chunk of res.body as any) {
         parser.feed(decoder.decode(chunk))
@@ -111,34 +105,32 @@ export async function OpenAIStream(payload: OpenAIStreamPayload) {
   const stream = new ReadableStream({
     async start(controller) {
       // callback
-      function onParse(event: ParsedEvent | ReconnectInterval) {
-        if (event.type === "event") {
-          const data = event.data
-          // https://beta.openai.com/docs/api-reference/completions/create#completions/create-stream
-          if (data === "[DONE]") {
-            controller.close()
+      function onEvent(event: EventSourceMessage) {
+        const data = event.data
+        // https://beta.openai.com/docs/api-reference/completions/create#completions/create-stream
+        if (data === "[DONE]") {
+          controller.close()
+          return
+        }
+        try {
+          const json = JSON.parse(data)
+          const text = json.choices[0].text
+          if (counter < 2 && (text.match(/\n/) || []).length) {
+            // this is a prefix character (i.e., "\n\n"), do nothing
             return
           }
-          try {
-            const json = JSON.parse(data)
-            const text = json.choices[0].text
-            if (counter < 2 && (text.match(/\n/) || []).length) {
-              // this is a prefix character (i.e., "\n\n"), do nothing
-              return
-            }
-            const queue = encoder.encode(text)
-            controller.enqueue(queue)
-            counter++
-          } catch (e) {
-            // maybe parse error
-            controller.error(e)
-          }
+          const queue = encoder.encode(text)
+          controller.enqueue(queue)
+          counter++
+        } catch (e) {
+          // maybe parse error
+          controller.error(e)
         }
       }
 
       // stream response (SSE) from OpenAI may be fragmented into multiple chunks
       // this ensures we properly read chunks and invoke an event for each SSE event stream
-      const parser = createParser(onParse)
+      const parser = createParser({ onEvent })
       // https://web.dev/streams/#asynchronous-iteration
       for await (const chunk of res.body as any) {
         parser.feed(decoder.decode(chunk))

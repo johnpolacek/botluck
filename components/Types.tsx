@@ -1,3 +1,5 @@
+import type React from "react"
+
 export type PotLuck = {
   id: string
   created: { _seconds: number; _nanoseconds: number }

@@ -1,8 +1,10 @@
+import type React from "react"
+
 const Card = ({
   children,
   className,
 }: {
-  children: JSX.Element | JSX.Element[]
+  children: React.ReactNode
   className?: string
 }) => (
   <div

@@ -1,4 +1,4 @@
-import { Dish as DishType } from "./Types"
+import type { Dish as DishType } from "./Types"
 import Dish from "./Dish"
 import Separator from "./ui/Separator"
 import { useRouter } from "next/router"

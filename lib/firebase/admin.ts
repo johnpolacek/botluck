@@ -1,6 +1,6 @@
 import admin from "firebase-admin"
 import { firestore } from "firebase-admin"
-import { PotLuckData } from "../../components/Types"
+import type { PotLuckData } from "../../components/Types"
 
 const firebaseConfig = {
   apiKey: "AIzaSyA2iPM2mdJIQpccBjxQP89hQG8k7euSUcM",

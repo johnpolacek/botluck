@@ -4,7 +4,7 @@ import Head from "next/head"
 import Header from "../../../components/Header"
 import Footer from "../../../components/Footer"
 import { getPotLuck } from "../../../lib/firebase/admin"
-import { Courses, PotLuckData } from "../../../components/Types"
+import type { Courses, PotLuckData } from "../../../components/Types"
 import Dish from "../../../components/Dish"
 
 type Props = { dish: Dish }

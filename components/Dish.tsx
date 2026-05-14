@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from "react"
-import { Dish } from "./Types"
+import type { Dish } from "./Types"
 import Card from "./ui/Card"
 
 const Dish = ({
