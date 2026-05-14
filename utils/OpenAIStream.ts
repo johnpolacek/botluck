@@ -44,6 +44,10 @@ export async function OpenChatGPTStream(payload: ChatGPTStreamPayload) {
     body: JSON.stringify(payload),
   })
 
+  if (!res.ok || !res.body) {
+    throw new Error(`OpenAI request failed with status ${res.status}`)
+  }
+
   const stream = new ReadableStream({
     async start(controller) {
       function onEvent(event: EventSourceMessage) {
@@ -101,6 +105,10 @@ export async function OpenAIStream(payload: OpenAIStreamPayload) {
     method: "POST",
     body: JSON.stringify(payload),
   })
+
+  if (!res.ok || !res.body) {
+    throw new Error(`OpenAI request failed with status ${res.status}`)
+  }
 
   const stream = new ReadableStream({
     async start(controller) {
